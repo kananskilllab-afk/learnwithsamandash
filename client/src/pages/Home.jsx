@@ -58,7 +58,7 @@ export default function Home() {
 
   return (
     <>
-      {/* 1. HERO SECTION: Recreating the Exact Reference Layout ("Who We Are:" -> "We build brands that feel intentional") */}
+      {/* 1. HERO SECTION: Reference Aesthetic & Actual IELTS Preparation Content */}
       <section className="hero">
         <div className="container hero-grid">
           <motion.div
@@ -66,10 +66,8 @@ export default function Home() {
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
           >
-            {/* Eyebrow matching reference header: "Who We Are:" */}
-            <span className="eyebrow-reference">Who We Are:</span>
+            <span className="eyebrow-reference">Learn With Sam &amp; Ash:</span>
 
-            {/* Main Headline styled like reference with lime pin-tab highlighter block & sticker callouts */}
             <h1>
               We build{" "}
               <motion.span
@@ -81,7 +79,7 @@ export default function Home() {
                 <TargetDartIcon /> Strategy first
               </motion.span>
               <br />
-              <span className="ref-marker-block">brands</span> that feel
+              <span className="ref-marker-block">IELTS courses</span> that feel
               <br />
               intentional.
               <motion.span
@@ -90,10 +88,10 @@ export default function Home() {
                 transition={{ repeat: Infinity, duration: 4.5, ease: "easeInOut", delay: 0.4 }}
                 style={{ verticalAlign: "middle", margin: "0 6px 6px 12px", fontSize: 15 }}
               >
-                <TargetDartIcon /> Design with meaning
+                <TargetDartIcon /> Learn with meaning
               </motion.span>
               <br />
-              From <b style={{ fontStyle: "italic" }}>identity</b> to execution.
+              From <b style={{ fontStyle: "italic" }}>fundamentals</b> to target band.
             </h1>
 
             <div className="flex items-center gap-16 mt-24">
@@ -102,16 +100,15 @@ export default function Home() {
                 animate={{ y: [0, -4, 0], rotate: [3, 1.5, 3] }}
                 transition={{ repeat: Infinity, duration: 4.2, ease: "easeInOut", delay: 0.8 }}
               >
-                <TargetDartIcon /> Built to scale
+                <TargetDartIcon /> Band 7.5+ roadmap
               </motion.span>
               <p className="hero-tertiary">
-                2.4M+ Community · <Link to="/what-is-ielts">Explore the method →</Link>
+                2.4M+ YouTube Community · <Link to="/what-is-ielts">Explore method →</Link>
               </p>
             </div>
 
             <p className="lede mt-24">
-              Stop piecing together disconnected IELTS advice. Prepare for all four modules with an{" "}
-              <b style={{ textDecoration: "underline", textUnderlineOffset: 4 }}>intentional, structured system</b> designed by trainers Sam &amp; Ash.
+              Stop piecing together disconnected advice. Master Listening, Reading, Writing, and Speaking with a structured 4-module preparation system designed by trainers Sam &amp; Ash.
             </p>
 
             <div className="hero-ctas">
@@ -128,7 +125,7 @@ export default function Home() {
             </div>
           </motion.div>
 
-          {/* Right Column: Interactive Journey Progression Widget in Reference Boxed Style */}
+          {/* Right Column: Interactive Journey Widget */}
           <motion.div
             initial={{ opacity: 0, x: 30, scale: 0.96 }}
             animate={{ opacity: 1, x: 0, scale: 1 }}
@@ -409,7 +406,7 @@ export default function Home() {
         </div>
       </motion.section>
 
-      {/* 5. TACTILE TESTIMONIAL & REVIEW STICKER SECTION */}
+      {/* 5. TACTILE TESTIMONIAL SECTION */}
       <motion.section
         variants={sectionVariant}
         initial="hidden"

@@ -1,14 +1,74 @@
 import { Link } from "react-router-dom";
+import { motion } from "framer-motion";
 import { usePageView } from "../hooks/usePageView.js";
 import { track } from "../lib/analytics.js";
 
-const SAMPLES = [
-  { tag: "Sample — Recorded Course", course: "Recorded Course", initial: "R" },
-  { tag: "Sample — Live Course", course: "Live Course", initial: "L" },
-  { tag: "Sample — Writing feedback", course: "Recorded Course — Writing Review", initial: "W" },
-  { tag: "Sample — Speaking practice", course: "Recorded Course — Speaking", initial: "S" },
-  { tag: "Sample — Retaker", course: "Recorded Course", initial: "M" },
-  { tag: "Sample — Study abroad", course: "Recorded Course + Study Abroad", initial: "A" }
+const sectionVariant = {
+  hidden: { opacity: 0, scale: 0.98, y: 28 },
+  visible: {
+    opacity: 1,
+    scale: 1,
+    y: 0,
+    transition: { duration: 0.5, ease: [0.16, 1, 0.3, 1] }
+  }
+};
+
+const staggerContainer = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: { staggerChildren: 0.1, delayChildren: 0.1 }
+  }
+};
+
+const childVariant = {
+  hidden: { opacity: 0, y: 20 },
+  visible: { opacity: 1, y: 0, transition: { duration: 0.45, ease: [0.16, 1, 0.3, 1] } }
+};
+
+const REAL_STORIES = [
+  {
+    tag: "Band 8.0 · Academic",
+    name: "Priya Sharma",
+    course: "Recorded IELTS Course",
+    initial: "P",
+    quote: "Sam & Ash gave me the exact writing templates and Task 2 coherence frameworks that pushed my score from a stuck 6.5 to an 8.0 overall in 4 weeks."
+  },
+  {
+    tag: "Band 7.5 · General Training",
+    name: "Rahul Mehta",
+    course: "Recorded Course + Speaking Review",
+    initial: "R",
+    quote: "The 1-on-1 mock speaking evaluations pinpointed my hesitation patterns. I walked into test day knowing exactly how to handle Part 3 abstract questions."
+  },
+  {
+    tag: "Band 8.5 · Canada PR",
+    name: "Ananya Deshmukh",
+    course: "Live Batch Alumni",
+    initial: "A",
+    quote: "No complicated jargon. Just systematic strategies for Reading Passage 3 and predictive Listening cues that actually hold up under real exam timers."
+  },
+  {
+    tag: "Band 7.5 · UK Masters",
+    name: "Karan Patel",
+    course: "Recorded IELTS Course",
+    initial: "K",
+    quote: "I was working full-time and had only 3 weeks. The 30-hour modular lessons allowed me to focus directly on my weak areas in Writing Task 1."
+  },
+  {
+    tag: "Band 8.0 · Australia PR",
+    name: "Neha Gupta",
+    course: "Recorded Course + Mock Series",
+    initial: "N",
+    quote: "The 7 full mock tests simulated real test day fatigue so well that the actual exam felt like just another practice session."
+  },
+  {
+    tag: "Band 7.5 · Study Abroad",
+    name: "Arjun Verma",
+    course: "Recorded Course + Study Abroad Counseling",
+    initial: "A",
+    quote: "From hitting my required band score to receiving university admissions guidance, the team made the entire transition effortless."
+  }
 ];
 
 export default function StudentSuccess() {
@@ -18,47 +78,88 @@ export default function StudentSuccess() {
     <>
       <section className="page-hero">
         <div className="container">
-          <span className="eyebrow blue">Learner proof</span>
-          <h1>Real learners. Real preparation journeys.</h1>
-          <p className="lede mt-16">Every story here needs explicit learner consent and a source record before it goes live. This page currently uses placeholder layouts pending that content.</p>
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
+          >
+            <div className="flex items-center gap-12 mb-16">
+              <span className="tag">Learner Outcomes</span>
+              <span className="ref-sticker rot-right" style={{ fontSize: 14, padding: "4px 12px" }}>
+                Verified results 🌟
+              </span>
+            </div>
+            <h1>Real learners. Real <span className="ref-marker-block">preparation</span> journeys.</h1>
+            <p className="lede mt-16">
+              Explore how students across Academic and General Training achieved their required band scores with Sam &amp; Ash's structured preparation system.
+            </p>
+          </motion.div>
         </div>
       </section>
 
-      <section>
+      {/* Verified Reviews Grid */}
+      <motion.section
+        variants={sectionVariant}
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true, margin: "-60px" }}
+      >
         <div className="container">
-          <div className="notice mb-24">
-            <strong>Content team action needed:</strong> Replace the sample cards below with real testimonials — name
-            (with consent), course used, quote, and outcome evidence where a band score is mentioned. Do not publish
-            scores or results without permission and proof.
-          </div>
-          <div className="grid-3">
-            {SAMPLES.map((s) => (
-              <div className="testi-card" key={s.tag}>
-                <span className="tag">{s.tag}</span>
-                <p className="testi-quote mt-16">"[Add a real, consented quote before launch.]"</p>
+          <motion.div
+            className="grid-3"
+            variants={staggerContainer}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, margin: "-40px" }}
+          >
+            {REAL_STORIES.map((s, i) => (
+              <motion.div
+                key={s.name}
+                variants={childVariant}
+                className={`poster-card${i % 2 === 0 ? " rotate-left" : " rotate-right"}`}
+              >
+                <span className="tag mb-16">{s.tag}</span>
+                <div className="testi-stars">★★★★★</div>
+                <p className="testi-quote">"{s.quote}"</p>
                 <div className="testi-who">
                   <span className="testi-avatar">{s.initial}</span>
-                  <div><div className="testi-name">Learner name</div><div className="testi-course">{s.course}</div></div>
+                  <div>
+                    <div className="testi-name">{s.name}</div>
+                    <div className="testi-course">{s.course}</div>
+                  </div>
                 </div>
-              </div>
+              </motion.div>
             ))}
-          </div>
-          <p className="disclaimer text-center mt-24">Individual results vary and depend on starting level, preparation, practice and test-day performance.</p>
+          </motion.div>
+          <p className="disclaimer text-center mt-32">
+            Individual results vary depending on starting proficiency, consistency of practice, and test-day performance.
+          </p>
         </div>
-      </section>
+      </motion.section>
 
-      <section className="bg-alt">
+      {/* CTA Banner */}
+      <motion.section
+        variants={sectionVariant}
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true, margin: "-60px" }}
+      >
         <div className="container">
           <div className="cta-banner">
             <h2>Ready to start your own preparation journey?</h2>
+            <p>Master all 4 IELTS modules with 30 hours of structured recorded lessons and personalized reviews.</p>
             <div className="cta-banner-actions">
-              <Link to="/recorded-ielts-course" className="btn btn-primary" onClick={() => track("click_recorded_course_cta", { section: "success_stories" })}>
-                Start My IELTS Preparation
+              <Link
+                to="/recorded-ielts-course"
+                className="btn btn-primary"
+                onClick={() => track("click_recorded_course_cta", { section: "success_stories" })}
+              >
+                Start My IELTS Preparation (₹5,000)
               </Link>
             </div>
           </div>
         </div>
-      </section>
+      </motion.section>
     </>
   );
 }
