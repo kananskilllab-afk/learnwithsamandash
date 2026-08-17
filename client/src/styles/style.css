@@ -302,42 +302,54 @@ h3 {
 .btn-sm { padding: 10px 20px; font-size: 14px; box-shadow: 3px 3px 0px var(--ink); }
 
 /* ===========================================================
-   Ultra-HQ Floating Torn Paper Navbar Island
+   Full-Width Ultra-HQ Torn Paper Navbar
    =========================================================== */
 .site-header {
   position: sticky;
-  top: 14px;
+  top: 0;
   z-index: 60;
-  background: transparent;
-  border: none;
-  height: auto;
-  padding: 0 16px;
+  width: 100%;
+  background-color: #FFFFFF;
+  background-image: url("/images/torn-paper-strip.webp");
+  background-size: cover;
+  background-position: center top;
+  border-bottom: 2px solid var(--ink);
+  height: 76px;
   display: flex;
-  justify-content: center;
+  align-items: center;
+  box-shadow: 0 6px 20px rgba(18, 35, 49, 0.12);
+  transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.25s ease;
+}
+
+.site-header::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -12px;
+  height: 14px;
+  background-image: url("/images/torn-edge-bottom.webp");
+  background-repeat: repeat-x;
+  background-size: 320px 14px;
   pointer-events: none;
-  transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  z-index: 61;
 }
 
 .site-header.is-scrolled {
-  transform: translateY(-4px);
+  box-shadow: 0 10px 28px rgba(18, 35, 49, 0.16);
 }
 
 .header-inner {
-  pointer-events: auto;
   position: relative;
+  z-index: 62;
   width: 100%;
   max-width: var(--maxw);
-  height: 74px;
+  margin: 0 auto;
+  padding: 0 24px;
+  height: 100%;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 0 32px;
-  background-color: #FFFFFF;
-  background-image: url("/images/torn-paper-island.webp");
-  background-size: 100% 100%;
-  background-repeat: no-repeat;
-  background-position: center;
-  filter: drop-shadow(0 8px 20px rgba(18, 35, 49, 0.18));
 }
 
 /* Brand */
