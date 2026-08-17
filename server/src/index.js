@@ -26,7 +26,10 @@ app.listen(PORT, () => {
   if (!process.env.RAZORPAY_KEY_ID || process.env.RAZORPAY_KEY_ID.includes("XXXX")) {
     console.warn("⚠ RAZORPAY_KEY_ID/SECRET not configured — checkout will fail until .env is set.");
   }
+  if (!process.env.MONGODB_URI) {
+    console.warn("⚠ MONGODB_URI not set — leads are saved to server/data/leads.json only.");
+  }
   if (!process.env.CRM_WEBHOOK_URL) {
-    console.warn("⚠ CRM_WEBHOOK_URL not set — leads are saved to server/data/leads.json only.");
+    console.warn("⚠ CRM_WEBHOOK_URL not set — leads are not forwarded to a CRM yet.");
   }
 });

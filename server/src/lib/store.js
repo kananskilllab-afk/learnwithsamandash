@@ -1,26 +1,24 @@
 /**
  * Lead persistence.
  *
- * TODO(production): replace this file-based store with your real CRM.
- * Two ways to wire a real CRM:
- *   1. Set CRM_WEBHOOK_URL in .env — every lead is POSTed there in addition
- *      to being saved locally.
- *   2. Or replace saveLead() entirely with a direct SDK/API call to your
- *      CRM (HubSpot, Zoho, etc).
+ * Primary store is MongoDB Atlas (the `leads` collection). If the database
+ * is unreachable, leads are written to server/data/leads.json instead so
+ * nothing is lost — that file is a safety net, not the source of truth.
  *
- * Local storage is kept either way as a safety net so a lead is never lost
- * if the CRM call fails.
+ * TODO(production): CRM_WEBHOOK_URL forwards every lead to your real CRM in
+ * addition to the database write, if set.
  */
 import { promises as fs } from "fs";
 import path from "path";
 import { fileURLToPath } from "url";
+import { getDb } from "./db.js";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
-const DATA_FILE = path.join(__dirname, "..", "..", "data", "leads.json");
+const FALLBACK_FILE = path.join(__dirname, "..", "..", "data", "leads.json");
 
-async function readAll() {
+async function readFallback() {
   try {
-    const raw = await fs.readFile(DATA_FILE, "utf-8");
+    const raw = await fs.readFile(FALLBACK_FILE, "utf-8");
     return JSON.parse(raw);
   } catch (err) {
     if (err.code === "ENOENT") return [];
@@ -28,16 +26,23 @@ async function readAll() {
   }
 }
 
-async function writeAll(leads) {
-  await fs.mkdir(path.dirname(DATA_FILE), { recursive: true });
-  await fs.writeFile(DATA_FILE, JSON.stringify(leads, null, 2), "utf-8");
+async function appendFallback(record) {
+  const leads = await readFallback();
+  leads.push(record);
+  await fs.mkdir(path.dirname(FALLBACK_FILE), { recursive: true });
+  await fs.writeFile(FALLBACK_FILE, JSON.stringify(leads, null, 2), "utf-8");
 }
 
 export async function saveLead(lead) {
-  const leads = await readAll();
   const record = { id: `${Date.now()}-${Math.random().toString(36).slice(2, 8)}`, ...lead };
-  leads.push(record);
-  await writeAll(leads);
+
+  try {
+    const db = await getDb();
+    await db.collection("leads").insertOne({ ...record });
+  } catch (err) {
+    console.warn("MongoDB write failed, saving to local fallback file:", err.message);
+    await appendFallback(record);
+  }
 
   const crmUrl = process.env.CRM_WEBHOOK_URL;
   if (crmUrl) {
@@ -49,7 +54,7 @@ export async function saveLead(lead) {
       });
       record.crm_forwarded = res.ok;
     } catch (err) {
-      console.warn("CRM webhook forward failed, lead kept in local store:", err.message);
+      console.warn("CRM webhook forward failed, lead kept in database/local store:", err.message);
       record.crm_forwarded = false;
     }
   }
@@ -58,5 +63,12 @@ export async function saveLead(lead) {
 }
 
 export async function listLeads() {
-  return readAll();
+  try {
+    const db = await getDb();
+    const leads = await db.collection("leads").find().sort({ received_at: -1 }).toArray();
+    return leads;
+  } catch (err) {
+    console.warn("MongoDB read failed, falling back to local file:", err.message);
+    return readFallback();
+  }
 }
