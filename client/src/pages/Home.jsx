@@ -4,9 +4,29 @@ import { motion } from "framer-motion";
 import { usePageView } from "../hooks/usePageView.js";
 import { track } from "../lib/analytics.js";
 
-// Animation Variants for Continuous Scroll Flow & Cascading
+// Target Swirl Icon SVG matching reference
+function TargetDartIcon() {
+  return (
+    <svg
+      className="target-icon"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2.5"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    >
+      <circle cx="12" cy="12" r="10" />
+      <circle cx="12" cy="12" r="6" />
+      <circle cx="12" cy="12" r="2" />
+      <path d="M12 2v4M12 18v4M2 12h4M18 12h4" />
+    </svg>
+  );
+}
+
+// Animation Variants
 const sectionVariant = {
-  hidden: { opacity: 0, scale: 0.98, y: 30 },
+  hidden: { opacity: 0, scale: 0.98, y: 28 },
   visible: {
     opacity: 1,
     scale: 1,
@@ -19,10 +39,7 @@ const staggerContainer = {
   hidden: { opacity: 0 },
   visible: {
     opacity: 1,
-    transition: {
-      staggerChildren: 0.12,
-      delayChildren: 0.1
-    }
+    transition: { staggerChildren: 0.12, delayChildren: 0.1 }
   }
 };
 
@@ -37,11 +54,11 @@ const childCardVariant = {
 
 export default function Home() {
   usePageView("view_home");
-  const [selectedTrack, setSelectedTrack] = useState("academic"); // 'academic' | 'general'
+  const [selectedTrack, setSelectedTrack] = useState("academic");
 
   return (
     <>
-      {/* 1. HERO SECTION: Asymmetric Two-Column Editorial Poster Layout with Parallax Floating Badges */}
+      {/* 1. HERO SECTION: Recreating the Exact Reference Layout ("Who We Are:" -> "We build brands that feel intentional") */}
       <section className="hero">
         <div className="container hero-grid">
           <motion.div
@@ -49,25 +66,52 @@ export default function Home() {
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
           >
-            <div className="flex items-center gap-12 mb-16">
-              <span className="eyebrow">2.4M+ Community on YouTube</span>
-              <motion.span
-                className="sticker-callout"
-                animate={{ y: [0, -6, 0], rotate: [-2.5, -1, -2.5] }}
-                transition={{ repeat: Infinity, duration: 4, ease: "easeInOut" }}
-              >
-                Strategy first ✍️
-              </motion.span>
-            </div>
+            {/* Eyebrow matching reference header: "Who We Are:" */}
+            <span className="eyebrow-reference">Who We Are:</span>
 
+            {/* Main Headline styled like reference with lime pin-tab highlighter block & sticker callouts */}
             <h1>
-              Master IELTS with a <span className="marker-highlight">clear path</span> &amp; proven strategy.
+              We build{" "}
+              <motion.span
+                className="ref-sticker rot-right"
+                animate={{ y: [0, -5, 0], rotate: [2.5, 4, 2.5] }}
+                transition={{ repeat: Infinity, duration: 4, ease: "easeInOut" }}
+                style={{ verticalAlign: "middle", margin: "0 8px 6px 4px" }}
+              >
+                <TargetDartIcon /> Strategy first
+              </motion.span>
+              <br />
+              <span className="ref-marker-block">brands</span> that feel
+              <br />
+              intentional.
+              <motion.span
+                className="ref-sticker rot-left-lg"
+                animate={{ y: [0, 4, 0], rotate: [-3.5, -2, -3.5] }}
+                transition={{ repeat: Infinity, duration: 4.5, ease: "easeInOut", delay: 0.4 }}
+                style={{ verticalAlign: "middle", margin: "0 6px 6px 12px", fontSize: 15 }}
+              >
+                <TargetDartIcon /> Design with meaning
+              </motion.span>
+              <br />
+              From <b style={{ fontStyle: "italic" }}>identity</b> to execution.
             </h1>
 
+            <div className="flex items-center gap-16 mt-24">
+              <motion.span
+                className="ref-sticker rot-right-lg"
+                animate={{ y: [0, -4, 0], rotate: [3, 1.5, 3] }}
+                transition={{ repeat: Infinity, duration: 4.2, ease: "easeInOut", delay: 0.8 }}
+              >
+                <TargetDartIcon /> Built to scale
+              </motion.span>
+              <p className="hero-tertiary">
+                2.4M+ Community · <Link to="/what-is-ielts">Explore the method →</Link>
+              </p>
+            </div>
+
             <p className="lede mt-24">
-              Stop piecing together disconnected advice. Prepare for all four modules with an{" "}
-              <span className="marker-highlight green">intentional</span>, structured system designed by IELTS trainers
-              Sam &amp; Ash.
+              Stop piecing together disconnected IELTS advice. Prepare for all four modules with an{" "}
+              <b style={{ textDecoration: "underline", textUnderlineOffset: 4 }}>intentional, structured system</b> designed by trainers Sam &amp; Ash.
             </p>
 
             <div className="hero-ctas">
@@ -76,28 +120,15 @@ export default function Home() {
                 className="btn btn-primary"
                 onClick={() => track("click_recorded_course_cta", { section: "hero" })}
               >
-                Start Recorded Course
+                Start Recorded Course (₹5,000)
               </Link>
               <Link to="/what-is-ielts#quiz" className="btn btn-secondary">
                 Find My IELTS Path
               </Link>
             </div>
-
-            <div className="flex items-center gap-16 mt-32">
-              <motion.span
-                className="sticker-callout alt"
-                animate={{ y: [0, 5, 0], rotate: [2, 3.5, 2] }}
-                transition={{ repeat: Infinity, duration: 4.5, ease: "easeInOut", delay: 0.5 }}
-              >
-                Know your goal 🎯
-              </motion.span>
-              <p className="hero-tertiary">
-                Planning to study abroad? <Link to="/study-abroad">Talk to an expert →</Link>
-              </p>
-            </div>
           </motion.div>
 
-          {/* Right Column: Interactive Journey Progression Widget */}
+          {/* Right Column: Interactive Journey Progression Widget in Reference Boxed Style */}
           <motion.div
             initial={{ opacity: 0, x: 30, scale: 0.96 }}
             animate={{ opacity: 1, x: 0, scale: 1 }}
@@ -158,7 +189,6 @@ export default function Home() {
                     initial={{ width: "0%" }}
                     animate={{ width: "65%" }}
                     transition={{ duration: 1.2, delay: 0.5, ease: "easeOut" }}
-                    style={{ background: "var(--blue)" }}
                   />
                 </div>
               </div>
@@ -203,7 +233,7 @@ export default function Home() {
       >
         <div className="container">
           <div className="section-head center">
-            <span className="eyebrow blue">IELTS Core Structure</span>
+            <span className="tag mb-16">IELTS Structure</span>
             <h2>First, understand the test format you need.</h2>
             <p className="lede mt-16" style={{ marginLeft: "auto", marginRight: "auto" }}>
               Every candidate requires a tailored strategy. Choose your stream and explore how all four modules are tested.
@@ -222,7 +252,7 @@ export default function Home() {
               </span>
               <h3>IELTS Academic</h3>
               <p className="muted small mt-8">
-                Designed for undergraduate or postgraduate university admissions and professional registration (Medical, Nursing, Law, etc.).
+                Designed for undergraduate or postgraduate university admissions and professional licensing (Medical, Nursing, Law).
               </p>
             </motion.div>
 
@@ -250,9 +280,7 @@ export default function Home() {
             viewport={{ once: true, margin: "-50px" }}
           >
             <motion.div variants={childCardVariant} className="module-card">
-              <div className="module-icon-wrap" style={{ background: "var(--pastel-blue)", color: "var(--blue)" }}>
-                L
-              </div>
+              <div className="module-icon-wrap">L</div>
               <h3>Listening</h3>
               <p className="muted small mt-8">
                 Master 4 sections, 40 questions, multiple accents, and predictive keyword techniques.
@@ -264,9 +292,7 @@ export default function Home() {
             </motion.div>
 
             <motion.div variants={childCardVariant} className="module-card">
-              <div className="module-icon-wrap" style={{ background: "var(--pastel-green)", color: "var(--green)" }}>
-                R
-              </div>
+              <div className="module-icon-wrap">R</div>
               <h3>Reading</h3>
               <p className="muted small mt-8">
                 {selectedTrack === "academic"
@@ -280,9 +306,7 @@ export default function Home() {
             </motion.div>
 
             <motion.div variants={childCardVariant} className="module-card">
-              <div className="module-icon-wrap" style={{ background: "var(--pastel-yellow)", color: "var(--ink)" }}>
-                W
-              </div>
+              <div className="module-icon-wrap">W</div>
               <h3>Writing</h3>
               <p className="muted small mt-8">
                 {selectedTrack === "academic"
@@ -296,9 +320,7 @@ export default function Home() {
             </motion.div>
 
             <motion.div variants={childCardVariant} className="module-card">
-              <div className="module-icon-wrap" style={{ background: "var(--pastel-pink)", color: "#BE185D" }}>
-                S
-              </div>
+              <div className="module-icon-wrap">S</div>
               <h3>Speaking</h3>
               <p className="muted small mt-8">
                 Face-to-face interview simulation across Part 1, Cue Card Part 2, and abstract Part 3 discussion.
@@ -320,7 +342,6 @@ export default function Home() {
 
       {/* 4. RECOMMENDED PATH SPOTLIGHT (Poster Style) */}
       <motion.section
-        className="bg-alt"
         variants={sectionVariant}
         initial="hidden"
         whileInView="visible"
@@ -329,7 +350,7 @@ export default function Home() {
         <div className="container">
           <div className="spotlight-poster">
             <div>
-              <span className="eyebrow" style={{ background: "rgba(255,255,255,0.15)", color: "var(--white)", borderColor: "rgba(255,255,255,0.4)" }}>
+              <span className="tag" style={{ marginBottom: 16 }}>
                 Recommended Course
               </span>
               <h2>The Recorded IELTS Course — Your Complete Strategy</h2>
@@ -397,7 +418,7 @@ export default function Home() {
       >
         <div className="container">
           <div className="section-head center">
-            <span className="eyebrow">Proven Results</span>
+            <span className="tag mb-16">Proven Results</span>
             <h2>What ambitious learners say</h2>
             <p className="lede mt-16" style={{ marginLeft: "auto", marginRight: "auto" }}>
               Join thousands of students who went from guessing question patterns to achieving their target band.
@@ -412,7 +433,7 @@ export default function Home() {
             viewport={{ once: true, margin: "-50px" }}
           >
             {/* Review Card 1 (Rotated Left) */}
-            <motion.div variants={childCardVariant} className="poster-card rotate-left bg-pastel-green">
+            <motion.div variants={childCardVariant} className="poster-card rotate-left">
               <span className="tag mb-16">Band 8.0 · Academic</span>
               <div className="testi-stars">★★★★★</div>
               <p className="testi-quote">
@@ -428,7 +449,7 @@ export default function Home() {
             </motion.div>
 
             {/* Review Card 2 (Crisp White Center) */}
-            <motion.div variants={childCardVariant} className="poster-card bg-white">
+            <motion.div variants={childCardVariant} className="poster-card">
               <span className="tag mb-16">Band 7.5 · General Training</span>
               <div className="testi-stars">★★★★★</div>
               <p className="testi-quote">
@@ -444,7 +465,7 @@ export default function Home() {
             </motion.div>
 
             {/* Review Card 3 (Rotated Right) */}
-            <motion.div variants={childCardVariant} className="poster-card rotate-right bg-pastel-pink">
+            <motion.div variants={childCardVariant} className="poster-card rotate-right">
               <span className="tag mb-16">Band 8.5 · Canada PR</span>
               <div className="testi-stars">★★★★★</div>
               <p className="testi-quote">
@@ -468,7 +489,6 @@ export default function Home() {
 
       {/* 6. HOW IT WORKS / STEPS */}
       <motion.section
-        className="bg-alt"
         variants={sectionVariant}
         initial="hidden"
         whileInView="visible"
@@ -476,7 +496,7 @@ export default function Home() {
       >
         <div className="container">
           <div className="section-head center">
-            <span className="eyebrow blue">5 Simple Steps</span>
+            <span className="tag mb-16">5 Simple Steps</span>
             <h2>How the preparation system works</h2>
           </div>
           <motion.div
@@ -524,7 +544,7 @@ export default function Home() {
       >
         <div className="container">
           <div className="section-head center">
-            <span className="eyebrow">Choose Your Path</span>
+            <span className="tag mb-16">Choose Your Path</span>
             <h2>Tailored preparation for every timeline</h2>
           </div>
 
@@ -586,7 +606,6 @@ export default function Home() {
 
       {/* 8. STUDY ABROAD BRIDGE */}
       <motion.section
-        className="bg-alt"
         variants={sectionVariant}
         initial="hidden"
         whileInView="visible"
@@ -595,7 +614,7 @@ export default function Home() {
         <div className="container">
           <div className="bridge-block">
             <div>
-              <span className="eyebrow blue">Study Abroad Advisory</span>
+              <span className="tag mb-16">Study Abroad Advisory</span>
               <h2>Planning university applications overseas?</h2>
               <p className="muted mt-8">
                 IELTS is just the first milestone. Speak directly with our study-abroad counselors for university shortlisting, SOP reviews, and visa paperwork.
@@ -634,7 +653,7 @@ export default function Home() {
               >
                 Start My IELTS Preparation
               </Link>
-              <Link to="/what-is-ielts#quiz" className="btn btn-outline-inverse">
+              <Link to="/what-is-ielts#quiz" className="btn btn-secondary" style={{ background: "transparent", color: "var(--white)", borderColor: "var(--white)" }}>
                 Find My IELTS Path
               </Link>
             </div>
