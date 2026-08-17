@@ -38,7 +38,10 @@ export default function Courses() {
             transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
           >
             <div className="flex items-center gap-12 mb-16">
-              <span className="eyebrow blue">Preparation Catalog</span>
+              <span className="eyebrow blue">
+                <img src="/images/icons/icon-lessons.webp" alt="Lessons" className="sticker-icon-sm" />
+                Preparation Catalog
+              </span>
               <motion.span
                 className="sticker-callout"
                 animate={{ y: [0, -4, 0], rotate: [-2, 1, -2] }}
@@ -55,7 +58,7 @@ export default function Courses() {
         </div>
       </section>
 
-      {/* Course Cards Grid */}
+      {/* Course Cards Grid with Custom Icons */}
       <motion.section
         variants={sectionVariant}
         initial="hidden"
@@ -72,8 +75,11 @@ export default function Courses() {
           >
             {/* 1. Recorded Course */}
             <motion.div variants={childVariant} className="plan-card recommended">
-              <span className="badge-recommended">Most Popular</span>
-              <span className="plan-name">Recorded Course</span>
+              <div className="flex items-center justify-between">
+                <img src="/images/icons/icon-play.webp" alt="Recorded Course" className="sticker-icon-md" />
+                <span className="badge-recommended">Most Popular</span>
+              </div>
+              <span className="plan-name mt-8">Recorded Course</span>
               <span className="plan-for">Learn on your own flexible schedule</span>
               <p className="small muted">
                 Comprehensive 4-module video curriculum, 7 full timed mock tests, 7 speaking evaluations, and diagnostic writing reviews.
@@ -83,13 +89,15 @@ export default function Courses() {
                 <span className="price-note">one-time fee</span>
               </div>
               <Link to="/recorded-ielts-course" className="btn btn-primary btn-block plan-cta">
+                <img src="/images/icons/icon-target.webp" alt="Target" className="sticker-icon-sm" />
                 View Recorded Course
               </Link>
             </motion.div>
 
             {/* 2. Live Course */}
             <motion.div variants={childVariant} className="plan-card">
-              <span className="plan-name">Live Batches</span>
+              <img src="/images/icons/icon-calendar.webp" alt="Live Batches" className="sticker-icon-md" />
+              <span className="plan-name mt-8">Live Batches</span>
               <span className="plan-for">Fixed schedule &amp; real-time accountability</span>
               <p className="small muted">
                 Live interactive workshops with trainers, real-time doubts resolution, module materials, and speaking practice.
@@ -100,12 +108,14 @@ export default function Courses() {
               </div>
               <Link to="/live-ielts-course" className="btn btn-secondary btn-block plan-cta">
                 View Live Batches
+                <img src="/images/icons/icon-arrow-right.webp" alt="Arrow" className="sticker-icon-sm" />
               </Link>
             </motion.div>
 
             {/* 3. Free Resources */}
             <motion.div variants={childVariant} className="plan-card">
-              <span className="plan-name">Free Resources</span>
+              <img src="/images/icons/icon-mock-tests.webp" alt="Free Diagnostics" className="sticker-icon-md" />
+              <span className="plan-name mt-8">Free Resources</span>
               <span className="plan-for">Self-study diagnostics &amp; blueprints</span>
               <p className="small muted">
                 2-minute readiness assessment quiz, 30/60/90-day structured study plans, and free sample video lesson.
@@ -116,6 +126,7 @@ export default function Courses() {
               </div>
               <Link to="/mock-tests" className="btn btn-secondary btn-block plan-cta">
                 Explore Free Resources
+                <img src="/images/icons/icon-arrow-right.webp" alt="Arrow" className="sticker-icon-sm" />
               </Link>
             </motion.div>
           </motion.div>
@@ -132,7 +143,10 @@ export default function Courses() {
       >
         <div className="container">
           <div className="section-head center">
-            <span className="eyebrow">Direct Comparison</span>
+            <span className="eyebrow">
+              <img src="/images/icons/icon-shield-check.webp" alt="Compare" className="sticker-icon-sm" />
+              Direct Comparison
+            </span>
             <h2>Compare All Options Side-by-Side</h2>
             <p className="muted mt-8">Everything you get across our preparation formats.</p>
           </div>
@@ -209,6 +223,7 @@ export default function Courses() {
             <p>Take our 2-minute diagnostic quiz to receive a customized recommendation.</p>
             <div className="cta-banner-actions">
               <Link to="/what-is-ielts#quiz" className="btn btn-primary">
+                <img src="/images/icons/icon-target.webp" alt="Target" className="sticker-icon-sm" />
                 Find My IELTS Path
               </Link>
             </div>

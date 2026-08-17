@@ -27,7 +27,10 @@ export default function About() {
             transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
           >
             <div className="flex items-center gap-12 mb-16">
-              <span className="eyebrow">Behind the Channel</span>
+              <span className="eyebrow">
+                <img src="/images/icons/icon-play.webp" alt="Play" className="sticker-icon-sm" />
+                Behind the Channel
+              </span>
               <span className="sticker-callout">2.4M Community 🎥</span>
             </div>
             <h1>You may know us from YouTube. Here is what we're <span className="marker-highlight">building</span> next.</h1>
@@ -40,6 +43,7 @@ export default function About() {
                 className="btn btn-primary"
                 onClick={() => track("click_recorded_course_cta", { section: "about_hero" })}
               >
+                <img src="/images/icons/icon-target.webp" alt="Target" className="sticker-icon-sm" />
                 Explore the Recorded Course
               </Link>
             </div>
@@ -68,7 +72,7 @@ export default function About() {
         </div>
       </section>
 
-      {/* 2. Channel Milestones */}
+      {/* 2. Channel Milestones with Sliced Icons */}
       <motion.div
         className="trust-strip"
         initial={{ opacity: 0 }}
@@ -77,14 +81,17 @@ export default function About() {
       >
         <div className="container trust-row">
           <div className="trust-item">
+            <img src="/images/icons/icon-play.webp" alt="Subscribers" className="sticker-icon-md mb-8" />
             <span className="trust-num">2.4M+</span>
             <span className="trust-label">Subscribers</span>
           </div>
           <div className="trust-item">
+            <img src="/images/icons/icon-lessons.webp" alt="Lessons" className="sticker-icon-md mb-8" />
             <span className="trust-num">403+</span>
             <span className="trust-label">Videos Published</span>
           </div>
           <div className="trust-item">
+            <img src="/images/icons/icon-views.webp" alt="Views" className="sticker-icon-md mb-8" />
             <span className="trust-num">15.7M+</span>
             <span className="trust-label">Flagship Course Views</span>
           </div>
@@ -99,27 +106,33 @@ export default function About() {
         viewport={{ once: true, margin: "-60px" }}
       >
         <div className="container">
+          <div className="section-head center">
+            <span className="eyebrow blue">
+              <img src="/images/icons/icon-star.webp" alt="Star" className="sticker-icon-sm" />
+              The Instructors
+            </span>
+            <h2>Meet Sam &amp; Ash</h2>
+          </div>
           <div className="grid-2">
             <div className="poster-card">
-              <span className="tag mb-16">Co-Founder &amp; Trainer</span>
-              <h3>Sam</h3>
-              <p className="muted mt-12">
-                Language educator, YouTuber, and IELTS specialist. Sam focuses on analytical writing structures, cohesion markers, and reading comprehension strategies that eliminate second-guessing.
+              <span className="tag mb-16">Co-Founder &amp; Instructor</span>
+              <h3>Ashish "Ash"</h3>
+              <p className="muted small mt-8">
+                Specialises in analytical writing frameworks, lexical resource development, and reading question-type mechanics. Known for breaking down complex scoring rubrics into simple step-by-step algorithms.
               </p>
             </div>
-
             <div className="poster-card">
-              <span className="tag mb-16">Co-Founder &amp; Trainer</span>
-              <h3>Ash</h3>
-              <p className="muted mt-12">
-                Communication coach and IELTS trainer. Ash specializes in natural speaking fluency, lexical precision, accent neutralization, and overcoming exam anxiety in face-to-face interviews.
+              <span className="tag mb-16">Co-Founder &amp; Instructor</span>
+              <h3>Sam</h3>
+              <p className="muted small mt-8">
+                Focuses on speaking fluency, accent comprehension, active listening strategies, and exam psychology. Has coached thousands of students to overcome test anxiety and speak with natural authority.
               </p>
             </div>
           </div>
         </div>
       </motion.section>
 
-      {/* 4. Teaching Philosophy */}
+      {/* 4. Methodology Section */}
       <motion.section
         className="bg-alt"
         variants={sectionVariant}
@@ -127,13 +140,30 @@ export default function About() {
         whileInView="visible"
         viewport={{ once: true, margin: "-60px" }}
       >
-        <div className="container container-narrow text-center">
-          <div className="poster-card bg-pastel-yellow">
-            <span className="eyebrow dark">Core Methodology</span>
+        <div className="container container-narrow">
+          <div className="section-head center">
+            <span className="eyebrow">
+              <img src="/images/icons/icon-shield-check.webp" alt="Shield" className="sticker-icon-sm" />
+              Philosophy
+            </span>
             <h2>Our Teaching Philosophy</h2>
-            <p className="muted mt-16" style={{ fontSize: 17, lineHeight: 1.7 }}>
-              Simple explanations. Authentic examples. Structured preparation. Continuous diagnostic practice. We believe learner confidence is built through understanding exam rubrics — not through gimmicks or false promises.
-            </p>
+          </div>
+          <div className="grid-3 mt-32">
+            <div className="poster-card bg-pastel-yellow">
+              <img src="/images/icons/icon-target.webp" alt="Clarity" className="sticker-icon-md mb-16" />
+              <h3>Clarity Over Jargon</h3>
+              <p className="muted small mt-8">No confusing grammar terminology where simple rules work.</p>
+            </div>
+            <div className="poster-card bg-pastel-green">
+              <img src="/images/icons/icon-mock-tests.webp" alt="Rubrics" className="sticker-icon-md mb-16" />
+              <h3>Rubric-Aligned</h3>
+              <p className="muted small mt-8">Every lesson teaches exactly what official examiners score.</p>
+            </div>
+            <div className="poster-card bg-pastel-pink">
+              <img src="/images/icons/icon-hourglass.webp" alt="Efficiency" className="sticker-icon-md mb-16" />
+              <h3>Actionable Practice</h3>
+              <p className="muted small mt-8">Methods you can test and verify in timed mock sessions.</p>
+            </div>
           </div>
         </div>
       </motion.section>
@@ -147,15 +177,12 @@ export default function About() {
       >
         <div className="container">
           <div className="cta-banner">
-            <h2>Ready to learn with us?</h2>
-            <p>Take the structured next step beyond our free YouTube lessons.</p>
+            <h2>Start learning with Sam &amp; Ash today</h2>
+            <p>Join the recorded course and prepare with structure and clarity.</p>
             <div className="cta-banner-actions">
-              <Link
-                to="/recorded-ielts-course"
-                className="btn btn-primary"
-                onClick={() => track("click_recorded_course_cta", { section: "about_final" })}
-              >
-                Start the Recorded Course (₹5,000)
+              <Link to="/recorded-ielts-course" className="btn btn-primary">
+                <img src="/images/icons/icon-target.webp" alt="Target" className="sticker-icon-sm" />
+                View the Recorded Course (₹5,000)
               </Link>
             </div>
           </div>

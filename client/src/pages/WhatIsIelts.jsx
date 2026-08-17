@@ -50,7 +50,10 @@ export default function WhatIsIelts() {
             transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
           >
             <div className="flex items-center gap-12 mb-16">
-              <span className="eyebrow blue">IELTS Fundamentals</span>
+              <span className="eyebrow blue">
+                <img src="/images/icons/icon-target.webp" alt="Target" className="sticker-icon-sm" />
+                IELTS Fundamentals
+              </span>
               <motion.span
                 className="sticker-callout"
                 animate={{ y: [0, -4, 0], rotate: [-2.5, -1, -2.5] }}
@@ -64,8 +67,14 @@ export default function WhatIsIelts() {
               Understand test formats, compare Academic vs. General Training, decode band calculation criteria, and find your ideal study route.
             </p>
             <div className="hero-ctas mt-24">
-              <a href="#quiz" className="btn btn-primary">Find My IELTS Path</a>
-              <a href="#modules" className="btn btn-secondary">Explore 4 Modules</a>
+              <a href="#quiz" className="btn btn-primary">
+                <img src="/images/icons/icon-target.webp" alt="Target" className="sticker-icon-sm" />
+                Find My IELTS Path
+              </a>
+              <a href="#modules" className="btn btn-secondary">
+                Explore 4 Modules
+                <img src="/images/icons/icon-arrow-right.webp" alt="Arrow" className="sticker-icon-sm" />
+              </a>
             </div>
           </motion.div>
         </div>
@@ -80,7 +89,10 @@ export default function WhatIsIelts() {
       >
         <div className="container container-narrow">
           <div className="poster-card">
-            <span className="tag mb-16">Global Standard</span>
+            <div className="flex items-center gap-8 mb-16">
+              <img src="/images/icons/icon-study-abroad.webp" alt="Global" className="sticker-icon-md" />
+              <span className="tag">Global Standard</span>
+            </div>
             <h2>Why people take IELTS</h2>
             <p className="muted mt-16">
               IELTS is accepted by over 12,000 organisations worldwide — including prestigious universities, professional licensing bodies, and immigration authorities in Canada, the UK, Australia, the USA, and New Zealand.
@@ -178,7 +190,7 @@ export default function WhatIsIelts() {
         </div>
       </motion.section>
 
-      {/* 4. Four Modules Grid */}
+      {/* 4. Four Modules Grid with Sliced Sticker Icons */}
       <motion.section
         id="modules"
         variants={sectionVariant}
@@ -199,22 +211,30 @@ export default function WhatIsIelts() {
             viewport={{ once: true, margin: "-40px" }}
           >
             <motion.div variants={childVariant} className="module-card">
-              <div className="module-icon-wrap" style={{ background: "var(--pastel-blue)", color: "var(--blue)" }}>L</div>
+              <div className="module-icon-wrap">
+                <img src="/images/icons/icon-listening.webp" alt="Listening" className="sticker-icon-lg" />
+              </div>
               <h3>Listening</h3>
               <p className="muted small mt-8">4 sections, 40 questions. Focus on signposting, accents, spelling, and distractors.</p>
             </motion.div>
             <motion.div variants={childVariant} className="module-card">
-              <div className="module-icon-wrap" style={{ background: "var(--pastel-green)", color: "var(--green)" }}>R</div>
+              <div className="module-icon-wrap">
+                <img src="/images/icons/icon-reading.webp" alt="Reading" className="sticker-icon-lg" />
+              </div>
               <h3>Reading</h3>
               <p className="muted small mt-8">3 passages, 40 questions. Master skimming, scanning, True/False/Not Given &amp; summary completion.</p>
             </motion.div>
             <motion.div variants={childVariant} className="module-card">
-              <div className="module-icon-wrap" style={{ background: "var(--pastel-yellow)", color: "var(--ink)" }}>W</div>
+              <div className="module-icon-wrap">
+                <img src="/images/icons/icon-writing.webp" alt="Writing" className="sticker-icon-lg" />
+              </div>
               <h3>Writing</h3>
               <p className="muted small mt-8">Task 1 &amp; Task 2. Evaluated on Task Achievement, Coherence &amp; Cohesion, Lexical Resource, Grammatical Range.</p>
             </motion.div>
             <motion.div variants={childVariant} className="module-card">
-              <div className="module-icon-wrap" style={{ background: "var(--pastel-pink)", color: "#BE185D" }}>S</div>
+              <div className="module-icon-wrap">
+                <img src="/images/icons/icon-speaking.webp" alt="Speaking" className="sticker-icon-lg" />
+              </div>
               <h3>Speaking</h3>
               <p className="muted small mt-8">3 parts in 11–14 minutes. Assessed on Fluency, Pronunciation, Lexical Range, and Grammatical Accuracy.</p>
             </motion.div>
@@ -222,6 +242,7 @@ export default function WhatIsIelts() {
           <div className="text-center mt-32">
             <Link to="/recorded-ielts-course#whats-inside" className="btn btn-secondary">
               See How We Teach Each Module
+              <img src="/images/icons/icon-arrow-right.webp" alt="Arrow" className="sticker-icon-sm" />
             </Link>
           </div>
         </div>
@@ -237,7 +258,10 @@ export default function WhatIsIelts() {
       >
         <div className="container container-narrow">
           <div className="section-head center">
-            <span className="eyebrow">Avoid Pitfalls</span>
+            <span className="eyebrow">
+              <img src="/images/icons/icon-shield-check.webp" alt="Shield" className="sticker-icon-sm" />
+              Avoid Pitfalls
+            </span>
             <h2>Common Beginner Mistakes</h2>
             <p className="muted mt-8">Click to understand the critical errors candidates make during initial preparation.</p>
           </div>
@@ -255,7 +279,10 @@ export default function WhatIsIelts() {
       >
         <div className="container container-narrow">
           <div className="section-head center">
-            <span className="eyebrow green">Interactive Quiz</span>
+            <span className="eyebrow green">
+              <img src="/images/icons/icon-target.webp" alt="Target" className="sticker-icon-sm" />
+              Interactive Quiz
+            </span>
             <h2>Which IELTS path matches your timeline?</h2>
             <p className="muted mt-8">Answer 3 simple questions to receive your personalized preparation recommendation.</p>
           </div>

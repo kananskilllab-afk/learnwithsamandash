@@ -27,7 +27,10 @@ export default function StudyAbroad() {
             transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
           >
             <div className="flex items-center justify-center gap-12 mb-16">
-              <span className="eyebrow blue">Overseas Admissions</span>
+              <span className="eyebrow blue">
+                <img src="/images/icons/icon-study-abroad.webp" alt="Global" className="sticker-icon-sm" />
+                Overseas Admissions
+              </span>
               <motion.span
                 className="sticker-callout"
                 animate={{ y: [0, -4, 0], rotate: [-2, 2, -2] }}
@@ -44,7 +47,7 @@ export default function StudyAbroad() {
         </div>
       </section>
 
-      {/* Form Container */}
+      {/* Form Container with Custom Sliced Icon */}
       <motion.section
         variants={sectionVariant}
         initial="hidden"
@@ -53,7 +56,10 @@ export default function StudyAbroad() {
       >
         <div className="container container-narrow">
           <div className="form-card">
-            <span className="eyebrow green">1-on-1 Consultation</span>
+            <span className="eyebrow green">
+              <img src="/images/icons/icon-user-login.webp" alt="Counselor" className="sticker-icon-sm" />
+              1-on-1 Consultation
+            </span>
             <h2>Talk to an Overseas Education Counselor</h2>
             <p className="muted mt-8 small">
               Share your details — takes less than 30 seconds. No spam, just actionable admission guidance.
@@ -73,6 +79,7 @@ export default function StudyAbroad() {
       >
         <div className="container container-narrow text-center">
           <div className="poster-card">
+            <img src="/images/icons/icon-graduation-video.webp" alt="Course" className="sticker-icon-lg mb-16" />
             <h2>Preparing for IELTS while finalizing universities?</h2>
             <p className="muted mt-16">
               Don't delay your language preparation. Start our comprehensive recorded IELTS course today.
@@ -83,6 +90,7 @@ export default function StudyAbroad() {
                 className="btn btn-primary"
                 onClick={() => track("click_recorded_course_cta", { section: "study_abroad_bridge" })}
               >
+                <img src="/images/icons/icon-target.webp" alt="Target" className="sticker-icon-sm" />
                 Start the Recorded Course (₹5,000)
               </Link>
             </div>

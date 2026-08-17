@@ -40,7 +40,10 @@ export default function MockTests() {
             transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
           >
             <div className="flex items-center gap-12 mb-16">
-              <span className="eyebrow blue">Diagnostic Toolset</span>
+              <span className="eyebrow blue">
+                <img src="/images/icons/icon-mock-tests.webp" alt="Diagnostics" className="sticker-icon-sm" />
+                Diagnostic Toolset
+              </span>
               <motion.span
                 className="sticker-callout"
                 animate={{ y: [0, -4, 0], rotate: [-2.5, 1.5, -2.5] }}
@@ -57,7 +60,7 @@ export default function MockTests() {
         </div>
       </section>
 
-      {/* Free Resource Cards */}
+      {/* Free Resource Cards with Sliced Icons */}
       <motion.section
         variants={sectionVariant}
         initial="hidden"
@@ -73,18 +76,25 @@ export default function MockTests() {
             viewport={{ once: true, margin: "-40px" }}
           >
             <motion.div variants={childVariant} className="poster-card">
-              <span className="tag mb-16">2-Min Diagnostic</span>
+              <div className="flex items-center justify-between mb-16">
+                <img src="/images/icons/icon-target.webp" alt="Assessment" className="sticker-icon-md" />
+                <span className="tag">2-Min Diagnostic</span>
+              </div>
               <h3>IELTS Readiness Assessment</h3>
               <p className="muted small mt-8">
                 Answer a few targeted questions to understand your baseline score profile and receive a custom prep strategy.
               </p>
               <a href="#assessment" className="btn btn-secondary btn-block mt-24">
                 Take Free Assessment
+                <img src="/images/icons/icon-arrow-right.webp" alt="Arrow" className="sticker-icon-sm" />
               </a>
             </motion.div>
 
             <motion.div variants={childVariant} className="poster-card bg-pastel-yellow">
-              <span className="tag mb-16">Watch Free Lesson</span>
+              <div className="flex items-center justify-between mb-16">
+                <img src="/images/icons/icon-play.webp" alt="Video" className="sticker-icon-md" />
+                <span className="tag">Watch Free Lesson</span>
+              </div>
               <h3>Sample Masterclass Video</h3>
               <p className="muted small mt-8">
                 Experience Sam &amp; Ash's structured teaching style firsthand through a full sample recorded lesson.
@@ -97,13 +107,17 @@ export default function MockTests() {
             </motion.div>
 
             <motion.div variants={childVariant} className="poster-card bg-pastel-green">
-              <span className="tag mb-16">Custom Timelines</span>
+              <div className="flex items-center justify-between mb-16">
+                <img src="/images/icons/icon-calendar.webp" alt="Study Plan" className="sticker-icon-md" />
+                <span className="tag">Custom Timelines</span>
+              </div>
               <h3>30 / 60 / 90-Day Study Plans</h3>
               <p className="muted small mt-8">
                 Get a week-by-week study roadmap built specifically for your remaining preparation timeline.
               </p>
               <a href="#assessment" className="btn btn-secondary btn-block mt-24">
                 Build My Study Plan
+                <img src="/images/icons/icon-arrow-right.webp" alt="Arrow" className="sticker-icon-sm" />
               </a>
             </motion.div>
           </motion.div>
@@ -121,7 +135,10 @@ export default function MockTests() {
       >
         <div className="container container-narrow">
           <div className="form-card">
-            <span className="eyebrow green">Free Assessment</span>
+            <span className="eyebrow green">
+              <img src="/images/icons/icon-shield-check.webp" alt="Shield" className="sticker-icon-sm" />
+              Free Assessment
+            </span>
             <h2>Get your personalized preparation profile</h2>
             <p className="muted mt-8 small">
               This short diagnostic provides study guidance and a tailored timeline recommendation.
@@ -140,6 +157,7 @@ export default function MockTests() {
       >
         <div className="container container-narrow text-center">
           <div className="poster-card bg-pastel-blue">
+            <img src="/images/icons/icon-mock-tests.webp" alt="Mock Tests" className="sticker-icon-lg mb-16" />
             <h2>Looking for the complete 7-Mock Test series?</h2>
             <p className="muted mt-16">
               7 full-length timed mock exams and 7 one-on-one speaking evaluations are included in the Recorded IELTS Course.
@@ -150,6 +168,7 @@ export default function MockTests() {
                 className="btn btn-primary"
                 onClick={() => track("click_recorded_course_cta", { section: "mock_tests_page" })}
               >
+                <img src="/images/icons/icon-target.webp" alt="Target" className="sticker-icon-sm" />
                 View the Recorded Course (₹5,000)
               </Link>
             </div>
