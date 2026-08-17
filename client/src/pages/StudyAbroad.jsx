@@ -1,7 +1,18 @@
 import { Link } from "react-router-dom";
+import { motion } from "framer-motion";
 import { usePageView } from "../hooks/usePageView.js";
 import { track } from "../lib/analytics.js";
 import StudyAbroadForm from "../components/StudyAbroadForm.jsx";
+
+const sectionVariant = {
+  hidden: { opacity: 0, scale: 0.98, y: 28 },
+  visible: {
+    opacity: 1,
+    scale: 1,
+    y: 0,
+    transition: { duration: 0.5, ease: [0.16, 1, 0.3, 1] }
+  }
+};
 
 export default function StudyAbroad() {
   usePageView("view_study_abroad");
@@ -10,33 +21,74 @@ export default function StudyAbroad() {
     <>
       <section className="page-hero">
         <div className="container container-narrow text-center">
-          <span className="eyebrow blue">Study abroad</span>
-          <h1>IELTS is only one part of your study-abroad plan.</h1>
-          <p className="lede mt-16" style={{ marginLeft: "auto", marginRight: "auto" }}>
-            Leave your phone number and email below. Our study-abroad consultant will connect with you directly to talk through your plan.
-          </p>
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
+          >
+            <div className="flex items-center justify-center gap-12 mb-16">
+              <span className="eyebrow blue">Overseas Admissions</span>
+              <motion.span
+                className="sticker-callout"
+                animate={{ y: [0, -4, 0], rotate: [-2, 2, -2] }}
+                transition={{ repeat: Infinity, duration: 4, ease: "easeInOut" }}
+              >
+                Global opportunities 🎓
+              </motion.span>
+            </div>
+            <h1>IELTS is only one milestone in your <span className="marker-highlight">study abroad</span> journey.</h1>
+            <p className="lede mt-16" style={{ marginLeft: "auto", marginRight: "auto" }}>
+              Leave your contact information below. Our experienced study-abroad counselors will reach out to help with university shortlisting, SOP documentation, and visa filings.
+            </p>
+          </motion.div>
         </div>
       </section>
 
-      <section>
+      {/* Form Container */}
+      <motion.section
+        variants={sectionVariant}
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true, margin: "-60px" }}
+      >
         <div className="container container-narrow">
           <div className="form-card">
-            <h2>Talk to a Study Abroad Expert</h2>
-            <p className="muted mt-8 small">Just two details — nothing lengthy. Takes about 30 seconds.</p>
+            <span className="eyebrow green">1-on-1 Consultation</span>
+            <h2>Talk to an Overseas Education Counselor</h2>
+            <p className="muted mt-8 small">
+              Share your details — takes less than 30 seconds. No spam, just actionable admission guidance.
+            </p>
             <StudyAbroadForm />
           </div>
         </div>
-      </section>
+      </motion.section>
 
-      <section className="bg-alt">
+      {/* Bridge Back to Course */}
+      <motion.section
+        className="bg-alt"
+        variants={sectionVariant}
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true, margin: "-60px" }}
+      >
         <div className="container container-narrow text-center">
-          <h2>Still want to keep preparing while you wait?</h2>
-          <p className="muted mt-16">IELTS prep doesn't have to pause. Start the recorded course today.</p>
-          <Link to="/recorded-ielts-course" className="btn btn-secondary mt-16" onClick={() => track("click_recorded_course_cta", { section: "study_abroad_bridge" })}>
-            Start the Recorded Course
-          </Link>
+          <div className="poster-card">
+            <h2>Preparing for IELTS while finalizing universities?</h2>
+            <p className="muted mt-16">
+              Don't delay your language preparation. Start our comprehensive recorded IELTS course today.
+            </p>
+            <div className="mt-24">
+              <Link
+                to="/recorded-ielts-course"
+                className="btn btn-primary"
+                onClick={() => track("click_recorded_course_cta", { section: "study_abroad_bridge" })}
+              >
+                Start the Recorded Course (₹5,000)
+              </Link>
+            </div>
+          </div>
         </div>
-      </section>
+      </motion.section>
     </>
   );
 }
