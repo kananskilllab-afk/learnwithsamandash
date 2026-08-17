@@ -50,7 +50,10 @@ export default function Home() {
             transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
           >
             <div className="flex items-center gap-12 mb-16">
-              <span className="eyebrow">2.4M+ Community on YouTube</span>
+              <span className="eyebrow">
+                <img src="/images/icons/icon-play.webp" alt="Community" className="sticker-icon-sm" />
+                2.4M+ Community on YouTube
+              </span>
               <motion.span
                 className="sticker-callout"
                 animate={{ y: [0, -6, 0], rotate: [-2.5, -1, -2.5] }}
@@ -76,10 +79,12 @@ export default function Home() {
                 className="btn btn-primary"
                 onClick={() => track("click_recorded_course_cta", { section: "hero" })}
               >
+                <img src="/images/icons/icon-target.webp" alt="Target" className="sticker-icon-sm" />
                 Start Recorded Course
               </Link>
               <Link to="/what-is-ielts#quiz" className="btn btn-secondary">
                 Find My IELTS Path
+                <img src="/images/icons/icon-arrow-right.webp" alt="Arrow" className="sticker-icon-sm" />
               </Link>
             </div>
 
@@ -176,18 +181,22 @@ export default function Home() {
       >
         <div className="container trust-row">
           <div className="trust-item">
+            <img src="/images/icons/icon-play.webp" alt="YouTube" className="sticker-icon-md mb-8" />
             <span className="trust-num">2.4M+</span>
             <span className="trust-label">YouTube Subscribers</span>
           </div>
           <div className="trust-item">
+            <img src="/images/icons/icon-views.webp" alt="Views" className="sticker-icon-md mb-8" />
             <span className="trust-num">15.7M+</span>
             <span className="trust-label">Course Video Views</span>
           </div>
           <div className="trust-item">
+            <img src="/images/icons/icon-lessons.webp" alt="Lessons" className="sticker-icon-md mb-8" />
             <span className="trust-num">403+</span>
             <span className="trust-label">Masterclass Lessons</span>
           </div>
           <div className="trust-item">
+            <img src="/images/icons/icon-shield-check.webp" alt="Modules" className="sticker-icon-md mb-8" />
             <span className="trust-num">4 / 4</span>
             <span className="trust-label">Modules Covered</span>
           </div>
@@ -241,7 +250,7 @@ export default function Home() {
             </motion.div>
           </div>
 
-          {/* 4 Interactive Module Cards */}
+          {/* 4 Interactive Module Cards with Custom Icons */}
           <motion.div
             className="module-grid mt-32"
             variants={staggerContainer}
@@ -250,8 +259,8 @@ export default function Home() {
             viewport={{ once: true, margin: "-50px" }}
           >
             <motion.div variants={childCardVariant} className="module-card">
-              <div className="module-icon-wrap" style={{ background: "var(--pastel-blue)", color: "var(--blue)" }}>
-                L
+              <div className="module-icon-wrap">
+                <img src="/images/icons/icon-listening.webp" alt="Listening Module" className="sticker-icon-lg" />
               </div>
               <h3>Listening</h3>
               <p className="muted small mt-8">
@@ -264,8 +273,8 @@ export default function Home() {
             </motion.div>
 
             <motion.div variants={childCardVariant} className="module-card">
-              <div className="module-icon-wrap" style={{ background: "var(--pastel-green)", color: "var(--green)" }}>
-                R
+              <div className="module-icon-wrap">
+                <img src="/images/icons/icon-reading.webp" alt="Reading Module" className="sticker-icon-lg" />
               </div>
               <h3>Reading</h3>
               <p className="muted small mt-8">
@@ -280,8 +289,8 @@ export default function Home() {
             </motion.div>
 
             <motion.div variants={childCardVariant} className="module-card">
-              <div className="module-icon-wrap" style={{ background: "var(--pastel-yellow)", color: "var(--ink)" }}>
-                W
+              <div className="module-icon-wrap">
+                <img src="/images/icons/icon-writing.webp" alt="Writing Module" className="sticker-icon-lg" />
               </div>
               <h3>Writing</h3>
               <p className="muted small mt-8">
@@ -296,8 +305,8 @@ export default function Home() {
             </motion.div>
 
             <motion.div variants={childCardVariant} className="module-card">
-              <div className="module-icon-wrap" style={{ background: "var(--pastel-pink)", color: "#BE185D" }}>
-                S
+              <div className="module-icon-wrap">
+                <img src="/images/icons/icon-speaking.webp" alt="Speaking Module" className="sticker-icon-lg" />
               </div>
               <h3>Speaking</h3>
               <p className="muted small mt-8">
@@ -313,6 +322,7 @@ export default function Home() {
           <div className="text-center mt-32">
             <Link to="/what-is-ielts" className="btn btn-secondary">
               Understand IELTS in 5 Minutes
+              <img src="/images/icons/icon-arrow-right.webp" alt="Arrow" className="sticker-icon-sm" />
             </Link>
           </div>
         </div>
@@ -342,6 +352,7 @@ export default function Home() {
                   className="btn btn-primary"
                   onClick={() => track("click_recorded_course_cta", { section: "spotlight" })}
                 >
+                  <img src="/images/icons/icon-target.webp" alt="Target" className="sticker-icon-sm" />
                   View Recorded Course (₹5,000)
                 </Link>
               </div>
@@ -349,35 +360,35 @@ export default function Home() {
 
             <div className="feature-list">
               <div className="feature-item">
-                <span className="feature-check">✓</span>
+                <img src="/images/icons/icon-hourglass.webp" alt="Hours" className="sticker-icon-md" />
                 <div className="feature-text">
                   <b>30 Hours of Step-by-Step Lessons</b>
                   <span>Every question type demystified with clear band-9 criteria.</span>
                 </div>
               </div>
               <div className="feature-item">
-                <span className="feature-check">✓</span>
+                <img src="/images/icons/icon-lessons.webp" alt="Materials" className="sticker-icon-md" />
                 <div className="feature-text">
                   <b>Materials for All 4 Modules</b>
                   <span>Templates, high-scoring vocabulary banks, and mock papers.</span>
                 </div>
               </div>
               <div className="feature-item">
-                <span className="feature-check">✓</span>
+                <img src="/images/icons/icon-mock-tests.webp" alt="Mock Tests" className="sticker-icon-md" />
                 <div className="feature-text">
                   <b>7 Full Mock Tests + 7 Speaking Evaluations</b>
                   <span>Simulate real test-day pressures and pinpoint gaps.</span>
                 </div>
               </div>
               <div className="feature-item">
-                <span className="feature-check">✓</span>
+                <img src="/images/icons/icon-writing.webp" alt="Reviews" className="sticker-icon-md" />
                 <div className="feature-text">
                   <b>Detailed Writing Reviews</b>
                   <span>Direct diagnostic feedback on Task 1 and Task 2 submissions.</span>
                 </div>
               </div>
               <div className="feature-item">
-                <span className="feature-check">✓</span>
+                <img src="/images/icons/icon-calendar.webp" alt="Access" className="sticker-icon-md" />
                 <div className="feature-text">
                   <b>3 Months Unlimited Access</b>
                   <span>Study on your terms from mobile, tablet, or desktop.</span>
@@ -397,7 +408,10 @@ export default function Home() {
       >
         <div className="container">
           <div className="section-head center">
-            <span className="eyebrow">Proven Results</span>
+            <span className="eyebrow">
+              <img src="/images/icons/icon-star.webp" alt="Star" className="sticker-icon-sm" />
+              Proven Results
+            </span>
             <h2>What ambitious learners say</h2>
             <p className="lede mt-16" style={{ marginLeft: "auto", marginRight: "auto" }}>
               Join thousands of students who went from guessing question patterns to achieving their target band.
@@ -595,7 +609,10 @@ export default function Home() {
         <div className="container">
           <div className="bridge-block">
             <div>
-              <span className="eyebrow blue">Study Abroad Advisory</span>
+              <span className="eyebrow blue">
+                <img src="/images/icons/icon-study-abroad.webp" alt="Global" className="sticker-icon-sm" />
+                Study Abroad Advisory
+              </span>
               <h2>Planning university applications overseas?</h2>
               <p className="muted mt-8">
                 IELTS is just the first milestone. Speak directly with our study-abroad counselors for university shortlisting, SOP reviews, and visa paperwork.
@@ -608,6 +625,7 @@ export default function Home() {
               onClick={() => track("study_abroad_cta", { section: "home_bridge" })}
             >
               Talk to a Study Abroad Expert
+              <img src="/images/icons/icon-arrow-right.webp" alt="Arrow" className="sticker-icon-sm" />
             </Link>
           </div>
         </div>
