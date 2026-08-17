@@ -302,49 +302,42 @@ h3 {
 .btn-sm { padding: 10px 20px; font-size: 14px; box-shadow: 3px 3px 0px var(--ink); }
 
 /* ===========================================================
-   Clean, Aligned & Professional Navbar with Realistic Torn Paper
+   Ultra-HQ Floating Torn Paper Navbar Island
    =========================================================== */
 .site-header {
   position: sticky;
-  top: 0;
+  top: 14px;
   z-index: 60;
-  background-color: #FFFFFF;
-  background-image: url("/images/torn-paper-strip.webp");
-  background-size: cover;
-  background-position: center top;
-  border-bottom: 2px solid var(--ink);
-  height: 76px;
+  background: transparent;
+  border: none;
+  height: auto;
+  padding: 0 16px;
   display: flex;
-  align-items: center;
-  box-shadow: 0 6px 18px rgba(18, 35, 49, 0.09);
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
-}
-
-.site-header::after {
-  content: "";
-  position: absolute;
-  left: 0;
-  right: 0;
-  bottom: -10px;
-  height: 12px;
-  background-image: url("/images/torn-edge-bottom.webp");
-  background-repeat: repeat-x;
-  background-size: 320px 12px;
+  justify-content: center;
   pointer-events: none;
-  z-index: 61;
+  transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .site-header.is-scrolled {
-  box-shadow: 0 10px 24px rgba(18, 35, 49, 0.12);
+  transform: translateY(-4px);
 }
 
 .header-inner {
+  pointer-events: auto;
+  position: relative;
+  width: 100%;
+  max-width: var(--maxw);
+  height: 74px;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  width: 100%;
-  position: relative;
-  z-index: 62;
+  padding: 0 32px;
+  background-color: #FFFFFF;
+  background-image: url("/images/torn-paper-island.webp");
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
+  background-position: center;
+  filter: drop-shadow(0 8px 20px rgba(18, 35, 49, 0.18));
 }
 
 /* Brand */
@@ -360,20 +353,20 @@ h3 {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 38px;
-  height: 38px;
-  border-radius: 10px;
+  width: 36px;
+  height: 36px;
+  border-radius: 9px;
   background: var(--ink);
   color: var(--white);
   font-weight: 800;
-  font-size: 14px;
+  font-size: 13.5px;
   border: 1.5px solid var(--ink);
   box-shadow: 2px 2px 0px var(--green);
 }
 
 .brand-name {
   font-weight: 800;
-  font-size: 17px;
+  font-size: 16.5px;
   color: var(--ink);
   letter-spacing: -0.015em;
   white-space: nowrap;
@@ -383,21 +376,21 @@ h3 {
 .header-right-group {
   display: flex;
   align-items: center;
-  gap: 24px;
+  gap: 20px;
 }
 
 .nav-desktop {
   display: flex;
   align-items: center;
-  gap: 6px;
+  gap: 4px;
 }
 
 .nav-link {
-  font-size: 14.5px;
-  font-weight: 600;
+  font-size: 14px;
+  font-weight: 700;
   color: var(--ink-soft);
   text-decoration: none;
-  padding: 8px 12px;
+  padding: 7px 12px;
   border-radius: 8px;
   transition: all 0.15s ease;
   line-height: 1;
@@ -407,28 +400,27 @@ h3 {
 
 .nav-link:hover {
   color: var(--ink);
-  background: var(--gray-100);
+  background: rgba(18, 35, 49, 0.05);
 }
 
 .nav-link.active {
-  color: var(--ink);
+  color: var(--green-dark);
   font-weight: 800;
   background: var(--green-50);
-  color: var(--green-dark);
 }
 
 /* Header Actions */
 .header-actions {
   display: flex;
   align-items: center;
-  gap: 12px;
+  gap: 10px;
 }
 
 .login-link {
-  font-size: 14px;
+  font-size: 13.5px;
   font-weight: 700;
   color: var(--ink-soft);
-  padding: 8px 12px;
+  padding: 7px 10px;
   border-radius: 8px;
   transition: all 0.15s ease;
   line-height: 1;
@@ -436,7 +428,7 @@ h3 {
 
 .login-link:hover {
   color: var(--ink);
-  background: var(--gray-100);
+  background: rgba(18, 35, 49, 0.05);
 }
 
 .btn-header-cta {
@@ -444,14 +436,14 @@ h3 {
   align-items: center;
   justify-content: center;
   font-family: inherit;
-  font-size: 14px;
+  font-size: 13.5px;
   font-weight: 800;
   color: var(--white);
   background: var(--green);
   border: 1.5px solid var(--ink);
-  padding: 9px 18px;
+  padding: 8px 16px;
   border-radius: var(--radius-pill);
-  box-shadow: 2.5px 2.5px 0px var(--ink);
+  box-shadow: 2px 2px 0px var(--ink);
   cursor: pointer;
   text-decoration: none;
   white-space: nowrap;
@@ -462,11 +454,11 @@ h3 {
 .btn-header-cta:hover {
   background: var(--green-dark);
   transform: translate(-1px, -1px);
-  box-shadow: 3.5px 3.5px 0px var(--ink);
+  box-shadow: 3px 3px 0px var(--ink);
 }
 
 .btn-header-cta:active {
-  transform: translate(1.5px, 1.5px);
+  transform: translate(1px, 1px);
   box-shadow: 1px 1px 0px var(--ink);
 }
 
