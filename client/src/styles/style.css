@@ -302,24 +302,40 @@ h3 {
 .btn-sm { padding: 10px 20px; font-size: 14px; box-shadow: 3px 3px 0px var(--ink); }
 
 /* ===========================================================
-   Clean, Aligned & Professional Navbar
+   Clean, Aligned & Professional Navbar with Realistic Torn Paper
    =========================================================== */
 .site-header {
   position: sticky;
   top: 0;
   z-index: 60;
-  background: rgba(255, 255, 255, 0.95);
-  backdrop-filter: blur(16px);
-  border-bottom: 1.5px solid var(--ink);
-  height: 72px;
+  background-color: #FFFFFF;
+  background-image: url("/images/torn-paper-strip.webp");
+  background-size: cover;
+  background-position: center top;
+  border-bottom: 2px solid var(--ink);
+  height: 76px;
   display: flex;
   align-items: center;
-  transition: box-shadow 0.2s ease, background 0.2s ease;
+  box-shadow: 0 6px 18px rgba(18, 35, 49, 0.09);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.site-header::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -10px;
+  height: 12px;
+  background-image: url("/images/torn-edge-bottom.webp");
+  background-repeat: repeat-x;
+  background-size: 320px 12px;
+  pointer-events: none;
+  z-index: 61;
 }
 
 .site-header.is-scrolled {
-  background: #FFFFFF;
-  box-shadow: 0 4px 16px rgba(18, 35, 49, 0.06);
+  box-shadow: 0 10px 24px rgba(18, 35, 49, 0.12);
 }
 
 .header-inner {
@@ -327,6 +343,8 @@ h3 {
   align-items: center;
   justify-content: space-between;
   width: 100%;
+  position: relative;
+  z-index: 62;
 }
 
 /* Brand */
