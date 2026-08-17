@@ -27,28 +27,51 @@ export default function Header() {
   }
 
   function fireHeaderCta() {
-    track("click_recorded_course_cta", { section: "header" });
+    track("click_find_ielts_path_cta", { section: "header" });
   }
 
   return (
     <>
       <header className="site-header">
         <div className="container">
-          <Link to="/" className="brand">
-            <span className="brand-mark">S&A</span> Learn With Sam & Ash
+          <Link to="/" className="brand" aria-label="Learn With Sam and Ash">
+            <span className="brand-mark">S&amp;A</span>
+            <span>Learn With Sam &amp; Ash</span>
           </Link>
+
           <nav className="nav-desktop" aria-label="Primary">
-            {NAV_LINKS.map((l) => (
-              <Link key={l.to} to={l.to}>{l.label}</Link>
-            ))}
+            {NAV_LINKS.map((l) => {
+              const isActive = location.pathname === l.to;
+              return (
+                <Link
+                  key={l.to}
+                  to={l.to}
+                  className={`nav-link${isActive ? " active" : ""}`}
+                >
+                  {l.label}
+                </Link>
+              );
+            })}
           </nav>
+
           <div className="header-actions">
             <Link to="/login" className="login-link">Login</Link>
-            <Link to="/recorded-ielts-course" className="btn btn-primary btn-sm" onClick={fireHeaderCta}>
-              Start Recorded Course
+            <Link
+              to="/what-is-ielts#quiz"
+              className="btn btn-primary btn-sm"
+              onClick={fireHeaderCta}
+            >
+              Find My IELTS Path
             </Link>
-            <button className="nav-toggle" aria-label="Open menu" aria-expanded={open} onClick={toggle}>
-              <span></span><span></span><span></span>
+            <button
+              className="nav-toggle"
+              aria-label="Open menu"
+              aria-expanded={open}
+              onClick={toggle}
+            >
+              <span></span>
+              <span></span>
+              <span></span>
             </button>
           </div>
         </div>
@@ -61,8 +84,12 @@ export default function Header() {
         <Link to="/recorded-ielts-course">Recorded Course</Link>
         <Link to="/live-ielts-course">Live Course</Link>
         <Link to="/login">Login</Link>
-        <Link to="/recorded-ielts-course" className="btn btn-primary btn-block" onClick={fireHeaderCta}>
-          Start Recorded Course
+        <Link
+          to="/what-is-ielts#quiz"
+          className="btn btn-primary btn-block"
+          onClick={fireHeaderCta}
+        >
+          Find My IELTS Path
         </Link>
       </div>
     </>
