@@ -1,7 +1,39 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
+import { motion } from "framer-motion";
 import { usePageView } from "../hooks/usePageView.js";
 import { track } from "../lib/analytics.js";
+
+// Animation Variants for Continuous Scroll Flow & Cascading
+const sectionVariant = {
+  hidden: { opacity: 0, scale: 0.98, y: 30 },
+  visible: {
+    opacity: 1,
+    scale: 1,
+    y: 0,
+    transition: { duration: 0.5, ease: [0.16, 1, 0.3, 1] }
+  }
+};
+
+const staggerContainer = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.12,
+      delayChildren: 0.1
+    }
+  }
+};
+
+const childCardVariant = {
+  hidden: { opacity: 0, y: 24 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.45, ease: [0.16, 1, 0.3, 1] }
+  }
+};
 
 export default function Home() {
   usePageView("view_home");
@@ -9,13 +41,23 @@ export default function Home() {
 
   return (
     <>
-      {/* 1. HERO SECTION: Asymmetric Two-Column Editorial Poster Layout */}
+      {/* 1. HERO SECTION: Asymmetric Two-Column Editorial Poster Layout with Parallax Floating Badges */}
       <section className="hero">
         <div className="container hero-grid">
-          <div>
+          <motion.div
+            initial={{ opacity: 0, x: -30 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+          >
             <div className="flex items-center gap-12 mb-16">
-              <span className="eyebrow dark">2.4M+ Community on YouTube</span>
-              <span className="sticker-callout">Strategy first ✍️</span>
+              <span className="eyebrow">2.4M+ Community on YouTube</span>
+              <motion.span
+                className="sticker-callout"
+                animate={{ y: [0, -6, 0], rotate: [-2.5, -1, -2.5] }}
+                transition={{ repeat: Infinity, duration: 4, ease: "easeInOut" }}
+              >
+                Strategy first ✍️
+              </motion.span>
             </div>
 
             <h1>
@@ -24,7 +66,7 @@ export default function Home() {
 
             <p className="lede mt-24">
               Stop piecing together disconnected advice. Prepare for all four modules with an{" "}
-              <span className="marker-highlight">intentional</span>, structured system designed by IELTS trainers
+              <span className="marker-highlight green">intentional</span>, structured system designed by IELTS trainers
               Sam &amp; Ash.
             </p>
 
@@ -42,21 +84,31 @@ export default function Home() {
             </div>
 
             <div className="flex items-center gap-16 mt-32">
-              <span className="sticker-callout alt">Know your goal 🎯</span>
+              <motion.span
+                className="sticker-callout alt"
+                animate={{ y: [0, 5, 0], rotate: [2, 3.5, 2] }}
+                transition={{ repeat: Infinity, duration: 4.5, ease: "easeInOut", delay: 0.5 }}
+              >
+                Know your goal 🎯
+              </motion.span>
               <p className="hero-tertiary">
                 Planning to study abroad? <Link to="/study-abroad">Talk to an expert →</Link>
               </p>
             </div>
-          </div>
+          </motion.div>
 
-          {/* Right Column: Interactive Journey Widget */}
-          <div>
+          {/* Right Column: Interactive Journey Progression Widget */}
+          <motion.div
+            initial={{ opacity: 0, x: 30, scale: 0.96 }}
+            animate={{ opacity: 1, x: 0, scale: 1 }}
+            transition={{ duration: 0.6, delay: 0.15, ease: [0.16, 1, 0.3, 1] }}
+          >
             <div className="journey-widget">
               <span className="journey-widget-badge">Interactive Roadmap</span>
               <div className="flex items-center justify-between mb-24">
                 <div>
                   <h3 style={{ fontSize: 22, margin: 0 }}>Your IELTS Journey</h3>
-                  <p className="small muted mt-8">A complete 4-step framework from fundamentals to target band score.</p>
+                  <p className="small muted mt-8">A 4-step framework from fundamentals to Band 7.5+.</p>
                 </div>
               </div>
 
@@ -64,7 +116,7 @@ export default function Home() {
                 <div className="journey-step-node">✓</div>
                 <div>
                   <b style={{ fontSize: 16 }}>1. Choose your test track</b>
-                  <p className="small muted">Academic (University) vs. General Training (Work/Migration)</p>
+                  <p className="small muted">Academic (University) vs. General Training (PR/Work)</p>
                 </div>
               </div>
 
@@ -81,7 +133,7 @@ export default function Home() {
                 <div>
                   <div className="flex items-center gap-8">
                     <b style={{ fontSize: 16, color: "var(--blue)" }}>3. Set your target band</b>
-                    <span className="tag" style={{ background: "var(--blue-50)", color: "var(--blue)", border: "1px solid var(--blue)" }}>In Progress</span>
+                    <span className="tag" style={{ background: "var(--blue-50)", color: "var(--blue)", border: "1.5px solid var(--blue)" }}>In Progress</span>
                   </div>
                   <p className="small muted mt-8">Aiming for Band 7.5+ with structured feedback reviews</p>
                 </div>
@@ -101,16 +153,27 @@ export default function Home() {
                   <Link to="/what-is-ielts" className="btn-text">Explore breakdown</Link>
                 </div>
                 <div className="module-progress-bar" style={{ marginTop: 8 }}>
-                  <div className="module-progress-fill" style={{ width: "65%", background: "var(--blue)" }}></div>
+                  <motion.div
+                    className="module-progress-fill"
+                    initial={{ width: "0%" }}
+                    animate={{ width: "65%" }}
+                    transition={{ duration: 1.2, delay: 0.5, ease: "easeOut" }}
+                    style={{ background: "var(--blue)" }}
+                  />
                 </div>
               </div>
             </div>
-          </div>
+          </motion.div>
         </div>
       </section>
 
       {/* 2. TRUST STATS STRIP */}
-      <div className="trust-strip">
+      <motion.div
+        className="trust-strip"
+        initial={{ opacity: 0 }}
+        whileInView={{ opacity: 1 }}
+        viewport={{ once: true, margin: "-50px" }}
+      >
         <div className="container trust-row">
           <div className="trust-item">
             <span className="trust-num">2.4M+</span>
@@ -129,10 +192,15 @@ export default function Home() {
             <span className="trust-label">Modules Covered</span>
           </div>
         </div>
-      </div>
+      </motion.div>
 
       {/* 3. INTERACTIVE MODULES & TRACK SELECTOR */}
-      <section>
+      <motion.section
+        variants={sectionVariant}
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true, margin: "-80px" }}
+      >
         <div className="container">
           <div className="section-head center">
             <span className="eyebrow blue">IELTS Core Structure</span>
@@ -144,7 +212,8 @@ export default function Home() {
 
           {/* Academic vs General Toggle Cards */}
           <div className="track-selector-grid mb-32">
-            <div
+            <motion.div
+              whileHover={{ y: -3 }}
               className={`track-card${selectedTrack === "academic" ? " active" : ""}`}
               onClick={() => setSelectedTrack("academic")}
             >
@@ -155,9 +224,10 @@ export default function Home() {
               <p className="muted small mt-8">
                 Designed for undergraduate or postgraduate university admissions and professional registration (Medical, Nursing, Law, etc.).
               </p>
-            </div>
+            </motion.div>
 
-            <div
+            <motion.div
+              whileHover={{ y: -3 }}
               className={`track-card${selectedTrack === "general" ? " active" : ""}`}
               onClick={() => setSelectedTrack("general")}
             >
@@ -168,12 +238,18 @@ export default function Home() {
               <p className="muted small mt-8">
                 Designed for permanent residency (Express Entry, PR visas), vocational training, and work opportunities abroad.
               </p>
-            </div>
+            </motion.div>
           </div>
 
           {/* 4 Interactive Module Cards */}
-          <div className="module-grid mt-32">
-            <div className="module-card">
+          <motion.div
+            className="module-grid mt-32"
+            variants={staggerContainer}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, margin: "-50px" }}
+          >
+            <motion.div variants={childCardVariant} className="module-card">
               <div className="module-icon-wrap" style={{ background: "var(--pastel-blue)", color: "var(--blue)" }}>
                 L
               </div>
@@ -185,9 +261,9 @@ export default function Home() {
                 <div className="module-progress-fill" style={{ width: "85%" }}></div>
               </div>
               <span className="small muted mt-8">8.5 Target Potential</span>
-            </div>
+            </motion.div>
 
-            <div className="module-card">
+            <motion.div variants={childCardVariant} className="module-card">
               <div className="module-icon-wrap" style={{ background: "var(--pastel-green)", color: "var(--green)" }}>
                 R
               </div>
@@ -201,9 +277,9 @@ export default function Home() {
                 <div className="module-progress-fill" style={{ width: "80%" }}></div>
               </div>
               <span className="small muted mt-8">8.0 Target Potential</span>
-            </div>
+            </motion.div>
 
-            <div className="module-card">
+            <motion.div variants={childCardVariant} className="module-card">
               <div className="module-icon-wrap" style={{ background: "var(--pastel-yellow)", color: "var(--ink)" }}>
                 W
               </div>
@@ -217,9 +293,9 @@ export default function Home() {
                 <div className="module-progress-fill" style={{ width: "75%" }}></div>
               </div>
               <span className="small muted mt-8">7.5+ Target Potential</span>
-            </div>
+            </motion.div>
 
-            <div className="module-card">
+            <motion.div variants={childCardVariant} className="module-card">
               <div className="module-icon-wrap" style={{ background: "var(--pastel-pink)", color: "#BE185D" }}>
                 S
               </div>
@@ -231,8 +307,8 @@ export default function Home() {
                 <div className="module-progress-fill" style={{ width: "90%" }}></div>
               </div>
               <span className="small muted mt-8">8.0 Target Potential</span>
-            </div>
-          </div>
+            </motion.div>
+          </motion.div>
 
           <div className="text-center mt-32">
             <Link to="/what-is-ielts" className="btn btn-secondary">
@@ -240,10 +316,16 @@ export default function Home() {
             </Link>
           </div>
         </div>
-      </section>
+      </motion.section>
 
       {/* 4. RECOMMENDED PATH SPOTLIGHT (Poster Style) */}
-      <section className="bg-alt">
+      <motion.section
+        className="bg-alt"
+        variants={sectionVariant}
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true, margin: "-80px" }}
+      >
         <div className="container">
           <div className="spotlight-poster">
             <div>
@@ -304,22 +386,33 @@ export default function Home() {
             </div>
           </div>
         </div>
-      </section>
+      </motion.section>
 
       {/* 5. TACTILE TESTIMONIAL & REVIEW STICKER SECTION */}
-      <section>
+      <motion.section
+        variants={sectionVariant}
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true, margin: "-80px" }}
+      >
         <div className="container">
           <div className="section-head center">
-            <span className="eyebrow dark">Proven Results</span>
+            <span className="eyebrow">Proven Results</span>
             <h2>What ambitious learners say</h2>
             <p className="lede mt-16" style={{ marginLeft: "auto", marginRight: "auto" }}>
               Join thousands of students who went from guessing question patterns to achieving their target band.
             </p>
           </div>
 
-          <div className="grid-3">
+          <motion.div
+            className="grid-3"
+            variants={staggerContainer}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, margin: "-50px" }}
+          >
             {/* Review Card 1 (Rotated Left) */}
-            <div className="poster-card rotate-left bg-pastel-green">
+            <motion.div variants={childCardVariant} className="poster-card rotate-left bg-pastel-green">
               <span className="tag mb-16">Band 8.0 · Academic</span>
               <div className="testi-stars">★★★★★</div>
               <p className="testi-quote">
@@ -332,10 +425,10 @@ export default function Home() {
                   <div className="testi-course">Recorded IELTS Course</div>
                 </div>
               </div>
-            </div>
+            </motion.div>
 
             {/* Review Card 2 (Crisp White Center) */}
-            <div className="poster-card bg-white">
+            <motion.div variants={childCardVariant} className="poster-card bg-white">
               <span className="tag mb-16">Band 7.5 · General Training</span>
               <div className="testi-stars">★★★★★</div>
               <p className="testi-quote">
@@ -348,10 +441,10 @@ export default function Home() {
                   <div className="testi-course">Recorded Course + Speaking Review</div>
                 </div>
               </div>
-            </div>
+            </motion.div>
 
             {/* Review Card 3 (Rotated Right) */}
-            <div className="poster-card rotate-right bg-pastel-pink">
+            <motion.div variants={childCardVariant} className="poster-card rotate-right bg-pastel-pink">
               <span className="tag mb-16">Band 8.5 · Canada PR</span>
               <div className="testi-stars">★★★★★</div>
               <p className="testi-quote">
@@ -364,62 +457,85 @@ export default function Home() {
                   <div className="testi-course">Live Batch Alumni</div>
                 </div>
               </div>
-            </div>
-          </div>
+            </motion.div>
+          </motion.div>
 
           <p className="disclaimer text-center">
             Individual results depend on initial foundation, practice consistency, and individual test-day execution.
           </p>
         </div>
-      </section>
+      </motion.section>
 
       {/* 6. HOW IT WORKS / STEPS */}
-      <section className="bg-alt">
+      <motion.section
+        className="bg-alt"
+        variants={sectionVariant}
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true, margin: "-80px" }}
+      >
         <div className="container">
           <div className="section-head center">
             <span className="eyebrow blue">5 Simple Steps</span>
             <h2>How the preparation system works</h2>
           </div>
-          <div className="steps">
-            <div className="step">
+          <motion.div
+            className="steps"
+            variants={staggerContainer}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, margin: "-50px" }}
+          >
+            <motion.div variants={childCardVariant} className="step">
               <div className="step-num">1</div>
               <b>Enrol in seconds</b>
               <p>Secure instantaneous portal access with our seamless Razorpay checkout.</p>
-            </div>
-            <div className="step">
+            </motion.div>
+            <motion.div variants={childCardVariant} className="step">
               <div className="step-num">2</div>
               <b>Watch video modules</b>
               <p>Work through 30 hours of high-definition video masterclasses.</p>
-            </div>
-            <div className="step">
+            </motion.div>
+            <motion.div variants={childCardVariant} className="step">
               <div className="step-num">3</div>
               <b>Practise with sheets</b>
               <p>Apply methods directly on authentic question sets with sample answers.</p>
-            </div>
-            <div className="step">
+            </motion.div>
+            <motion.div variants={childCardVariant} className="step">
               <div className="step-num">4</div>
               <b>Attempt mock tests</b>
               <p>Benchmark your speed and accuracy across 7 full-length timed tests.</p>
-            </div>
-            <div className="step">
+            </motion.div>
+            <motion.div variants={childCardVariant} className="step">
               <div className="step-num">5</div>
               <b>Get trainer review</b>
               <p>Receive diagnostic feedback on your writing essays and speaking mocks.</p>
-            </div>
-          </div>
+            </motion.div>
+          </motion.div>
         </div>
-      </section>
+      </motion.section>
 
       {/* 7. CHOOSE YOUR PLAN */}
-      <section>
+      <motion.section
+        variants={sectionVariant}
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true, margin: "-80px" }}
+      >
         <div className="container">
           <div className="section-head center">
-            <span className="eyebrow dark">Choose Your Path</span>
+            <span className="eyebrow">Choose Your Path</span>
             <h2>Tailored preparation for every timeline</h2>
           </div>
 
-          <div className="plan-grid">
-            <div className="plan-card recommended">
+          <motion.div
+            className="plan-grid"
+            variants={staggerContainer}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, margin: "-50px" }}
+          >
+            <motion.div variants={childCardVariant} className="plan-card recommended">
               <span className="badge-recommended">Most Popular</span>
               <span className="plan-name">Recorded Course</span>
               <span className="plan-for">Best for self-paced, flexible learners</span>
@@ -433,9 +549,9 @@ export default function Home() {
               <Link to="/recorded-ielts-course" className="btn btn-primary btn-block plan-cta">
                 Enrol in Recorded Course
               </Link>
-            </div>
+            </motion.div>
 
-            <div className="plan-card">
+            <motion.div variants={childCardVariant} className="plan-card">
               <span className="plan-name">Live Batches</span>
               <span className="plan-for">Best for structured classroom accountability</span>
               <p className="small muted">
@@ -448,9 +564,9 @@ export default function Home() {
               <Link to="/live-ielts-course" className="btn btn-secondary btn-block plan-cta">
                 View Next Batch
               </Link>
-            </div>
+            </motion.div>
 
-            <div className="plan-card">
+            <motion.div variants={childCardVariant} className="plan-card">
               <span className="plan-name">Free Resources</span>
               <span className="plan-for">Best for quick diagnostics and self-study</span>
               <p className="small muted">
@@ -463,13 +579,19 @@ export default function Home() {
               <Link to="/mock-tests" className="btn btn-secondary btn-block plan-cta">
                 Explore Free Resources
               </Link>
-            </div>
-          </div>
+            </motion.div>
+          </motion.div>
         </div>
-      </section>
+      </motion.section>
 
       {/* 8. STUDY ABROAD BRIDGE */}
-      <section className="bg-alt">
+      <motion.section
+        className="bg-alt"
+        variants={sectionVariant}
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true, margin: "-80px" }}
+      >
         <div className="container">
           <div className="bridge-block">
             <div>
@@ -489,10 +611,15 @@ export default function Home() {
             </Link>
           </div>
         </div>
-      </section>
+      </motion.section>
 
       {/* 9. FINAL POSTER CTA BANNER */}
-      <section>
+      <motion.section
+        variants={sectionVariant}
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true, margin: "-80px" }}
+      >
         <div className="container">
           <div className="cta-banner">
             <h2>Ready to stop piecing IELTS together?</h2>
@@ -513,7 +640,7 @@ export default function Home() {
             </div>
           </div>
         </div>
-      </section>
+      </motion.section>
     </>
   );
 }

@@ -1,22 +1,22 @@
 /* ===========================================================
-   Learn With Sam & Ash — Editorial Poster Design System
+   Learn With Sam & Ash — Tactile Editorial Poster & Motion System
    Palette:
    - Paper / Off-white: #F7F6F1
    - Pure White:        #FFFFFF
-   - Leaf/Forest Green: #18A66A (Hover #148F5B, Soft Tint #E8F7F0)
+   - Forest Green:      #18A66A (Hover #148F5B, Soft Tint #E8F7F0)
+   - Highlighter Lime:  #B8FF57 (Electric marker strip)
    - Electric Blue:     #2563EB (Soft Tint #EFF4FE)
-   - Ink Black / Navy:  #122331 / #0F172A
+   - Ink Navy / Black:  #122331 / #0F172A
    - Pastel accents:    Soft Green (#E8F7F0), Soft Pink (#FCEEE9), Soft Yellow (#FEF7E6)
    =========================================================== */
 
 :root {
-  /* Strict 4-color palette & essentials */
   --paper: #F7F6F1;
   --white: #FFFFFF;
   --green: #18A66A;
   --green-dark: #148F5B;
   --green-50: #E8F7F0;
-  --green-100: #D1EFE1;
+  --lime: #B8FF57;
 
   --blue: #2563EB;
   --blue-dark: #1D4ED8;
@@ -25,7 +25,7 @@
   --ink: #122331;
   --ink-soft: #4B5563;
   --ink-muted: #6B7280;
-  
+
   --pastel-pink: #FCEEE9;
   --pastel-green: #E8F7F0;
   --pastel-yellow: #FEF9EB;
@@ -35,24 +35,22 @@
   --gray-100: #ECEEF1;
   --gray-200: #E2E4E8;
   --gray-300: #CBD0D8;
-  --gray-400: #9CA3AF;
 
-  /* Semantic */
   --cta: #18A66A;
   --cta-hover: #148F5B;
   --link: #2563EB;
 
   --radius-sm: 8px;
   --radius-md: 14px;
-  --radius-lg: 24px;
+  --radius-lg: 20px;
+  --radius-xl: 28px;
   --radius-pill: 9999px;
 
-  /* Tactile Drop Shadows */
-  --shadow-sm: 0 2px 6px rgba(18, 35, 49, 0.05);
-  --shadow-poster: 0 12px 30px rgba(0, 0, 0, 0.09);
+  /* Hard Tactile Drop Shadows */
+  --shadow-sm: 3px 3px 0px #122331;
   --shadow-sticker: 6px 6px 0px #122331;
-  --shadow-sticker-sm: 4px 4px 0px #122331;
-  --shadow-sticker-hover: 8px 8px 0px #122331;
+  --shadow-sticker-hover: 10px 10px 0px #122331;
+  --shadow-pressed: 2px 2px 0px #122331;
 
   --maxw: 1200px;
   --header-h: 76px;
@@ -63,6 +61,7 @@
 *, *::before, *::after { box-sizing: border-box; }
 html { scroll-behavior: smooth; }
 
+/* 1. Grainy Paper Background Filter */
 body {
   margin: 0;
   font-family: "Plus Jakarta Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
@@ -70,8 +69,21 @@ body {
   background-color: var(--paper);
   line-height: 1.6;
   -webkit-font-smoothing: antialiased;
-  background-image: radial-gradient(rgba(18, 35, 49, 0.04) 1px, transparent 1px);
-  background-size: 24px 24px;
+  position: relative;
+  min-height: 100vh;
+}
+
+/* Subtle SVG Grain Overlay */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  width: 100vw;
+  height: 100vh;
+  pointer-events: none;
+  z-index: 999;
+  opacity: 0.035;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
 }
 
 img { max-width: 100%; display: block; }
@@ -80,7 +92,7 @@ ul { margin: 0; padding: 0; list-style: none; }
 h1, h2, h3, h4, p, figure { margin: 0; }
 button { font-family: inherit; }
 
-/* Containers */
+/* Container Groupings */
 .container { max-width: var(--maxw); margin: 0 auto; padding: 0 24px; }
 .container-narrow { max-width: 840px; margin: 0 auto; padding: 0 24px; }
 
@@ -111,14 +123,10 @@ h3 {
   line-height: 1.25;
 }
 
-.font-sans {
-  font-family: "Plus Jakarta Sans", sans-serif;
-}
-
 .lede {
   font-size: 19px;
   color: var(--ink-soft);
-  max-width: 660px;
+  max-width: 680px;
   line-height: 1.65;
 }
 
@@ -127,59 +135,36 @@ h3 {
 .muted { color: var(--ink-soft); }
 .small { font-size: 14px; }
 
-/* Highlighter Marker Strips (Editorial Poster) */
+/* 2. Highlighter Lime Marker Strips */
 .marker-highlight {
   position: relative;
   display: inline-block;
   white-space: nowrap;
-  font-weight: 700;
+  font-weight: 800;
   color: var(--ink);
-  padding: 0 6px;
-  z-index: 1;
+  background: var(--lime);
+  padding: 1px 8px;
+  border-radius: 6px;
+  transform: rotate(-1deg);
+  border: 1px solid rgba(18, 35, 49, 0.15);
+  box-shadow: 2px 2px 0px rgba(18, 35, 49, 0.1);
 }
 
-.marker-highlight::before {
-  content: "";
-  position: absolute;
-  inset: 15% -4px 10% -4px;
-  background: #18A66A;
-  opacity: 0.22;
-  border-radius: 4px;
-  transform: rotate(-1.2deg);
-  z-index: -1;
-  pointer-events: none;
+.marker-highlight.green {
+  background: #B8FF57;
 }
 
-.marker-highlight-yellow {
-  position: relative;
-  display: inline-block;
-  padding: 0 6px;
-  z-index: 1;
-}
-.marker-highlight-yellow::before {
-  content: "";
-  position: absolute;
-  inset: 15% -4px 10% -4px;
-  background: #FACC15;
-  opacity: 0.35;
-  border-radius: 4px;
+.marker-highlight.cyan {
+  background: #A5F3FC;
   transform: rotate(1deg);
-  z-index: -1;
 }
 
-/* Handwritten Style Notes & Stickers */
-.handwritten {
-  font-family: "Caveat", cursive;
-  font-size: 22px;
-  font-weight: 700;
-  color: var(--ink);
-}
-
+/* Handwritten Style Notes & Badges */
 .sticker-callout {
   display: inline-flex;
   align-items: center;
   gap: 6px;
-  background: #FEF9EB;
+  background: var(--pastel-yellow);
   border: 2px solid var(--ink);
   padding: 6px 14px;
   border-radius: 12px;
@@ -187,13 +172,15 @@ h3 {
   font-family: "Caveat", cursive;
   font-size: 19px;
   font-weight: 700;
-  transform: rotate(-3deg);
+  transform: rotate(-2.5deg);
   color: var(--ink);
+  transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1);
 }
+.sticker-callout:hover { transform: rotate(0deg) scale(1.04); }
 
 .sticker-callout.alt {
   background: var(--pastel-pink);
-  transform: rotate(2.5deg);
+  transform: rotate(2deg);
 }
 
 /* Eyebrows */
@@ -202,91 +189,83 @@ h3 {
   align-items: center;
   gap: 8px;
   font-size: 13px;
-  font-weight: 700;
+  font-weight: 800;
   letter-spacing: 0.06em;
   text-transform: uppercase;
-  color: var(--green-dark);
-  background: var(--green-50);
-  border: 1.5px solid var(--green);
+  color: var(--ink);
+  background: var(--white);
+  border: 2px solid var(--ink);
+  box-shadow: 2.5px 2.5px 0px var(--ink);
   padding: 6px 14px;
   border-radius: var(--radius-pill);
   margin-bottom: 20px;
 }
-.eyebrow.blue {
-  color: var(--blue);
-  background: var(--blue-50);
-  border-color: var(--blue);
+.eyebrow.green {
+  background: var(--green-50);
+  color: var(--green-dark);
+  border-color: var(--green-dark);
+  box-shadow: 2.5px 2.5px 0px var(--green-dark);
 }
-.eyebrow.dark {
-  color: var(--ink);
-  background: var(--white);
-  border-color: var(--ink);
+.eyebrow.blue {
+  background: var(--blue-50);
+  color: var(--blue);
+  border-color: var(--blue);
+  box-shadow: 2.5px 2.5px 0px var(--blue);
 }
 
-/* Buttons */
+/* 3. Tactile Buttons with Active Depress Effect */
 .btn {
   display: inline-flex;
   align-items: center;
   justify-content: center;
   gap: 8px;
   font-family: "Plus Jakarta Sans", sans-serif;
-  font-weight: 700;
+  font-weight: 800;
   font-size: 15.5px;
   padding: 14px 28px;
   border-radius: var(--radius-pill);
-  border: 2px solid transparent;
+  border: 2px solid var(--ink);
   cursor: pointer;
-  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  box-shadow: var(--shadow-sticker);
+  transition: all 0.15s cubic-bezier(0.16, 1, 0.3, 1);
   white-space: nowrap;
   text-decoration: none;
 }
-.btn:active { transform: translateY(2px); }
+.btn:hover {
+  transform: translate(-2px, -2px);
+  box-shadow: var(--shadow-sticker-hover);
+}
+.btn:active {
+  transform: translate(2px, 2px);
+  box-shadow: var(--shadow-pressed);
+}
 
 .btn-primary {
   background: var(--green);
   color: var(--white);
-  box-shadow: 0 4px 14px rgba(24, 166, 106, 0.35);
-  border-color: var(--green);
+  border-color: var(--ink);
 }
 .btn-primary:hover {
   background: var(--green-dark);
-  border-color: var(--green-dark);
-  box-shadow: 0 6px 20px rgba(24, 166, 106, 0.45);
-  transform: translateY(-1px);
-}
-
-.btn-blue {
-  background: var(--blue);
-  color: var(--white);
-  border-color: var(--blue);
-  box-shadow: 0 4px 14px rgba(37, 99, 235, 0.35);
-}
-.btn-blue:hover {
-  background: var(--blue-dark);
-  box-shadow: 0 6px 20px rgba(37, 99, 235, 0.45);
-  transform: translateY(-1px);
 }
 
 .btn-secondary {
   background: var(--white);
   color: var(--ink);
-  border: 2px solid var(--ink);
-  box-shadow: 3px 3px 0px var(--ink);
 }
 .btn-secondary:hover {
-  background: var(--gray-50);
-  transform: translate(-1px, -1px);
-  box-shadow: 5px 5px 0px var(--ink);
+  background: var(--pastel-yellow);
 }
 
 .btn-outline-inverse {
   background: transparent;
   color: var(--white);
-  border: 2px solid rgba(255, 255, 255, 0.6);
+  border: 2px solid var(--white);
+  box-shadow: 4px 4px 0px var(--white);
 }
 .btn-outline-inverse:hover {
-  border-color: var(--white);
-  background: rgba(255, 255, 255, 0.1);
+  background: rgba(255, 255, 255, 0.15);
+  box-shadow: 6px 6px 0px var(--white);
 }
 
 .btn-text {
@@ -295,11 +274,14 @@ h3 {
   padding: 8px 0;
   border-radius: 0;
   font-weight: 700;
+  border: none;
+  box-shadow: none;
 }
 .btn-text::after { content: "→"; margin-left: 6px; transition: transform 0.15s ease; }
+.btn-text:hover { transform: none; box-shadow: none; color: var(--blue-dark); }
 .btn-text:hover::after { transform: translateX(4px); }
 .btn-block { width: 100%; }
-.btn-sm { padding: 10px 20px; font-size: 14px; }
+.btn-sm { padding: 10px 20px; font-size: 14px; box-shadow: 3px 3px 0px var(--ink); }
 
 /* Sticky Header */
 .site-header {
@@ -308,9 +290,8 @@ h3 {
   z-index: 60;
   background: rgba(255, 255, 255, 0.92);
   backdrop-filter: blur(12px) saturate(180%);
-  border-bottom: 1px solid var(--gray-200);
+  border-bottom: 2px solid var(--ink);
   height: var(--header-h);
-  transition: all 0.2s ease;
 }
 
 .site-header .container {
@@ -354,7 +335,7 @@ h3 {
 
 .nav-link {
   font-size: 15px;
-  font-weight: 600;
+  font-weight: 700;
   color: var(--ink-soft);
   position: relative;
   padding: 6px 0;
@@ -363,7 +344,7 @@ h3 {
 .nav-link:hover { color: var(--ink); }
 .nav-link.active {
   color: var(--ink);
-  font-weight: 700;
+  font-weight: 800;
 }
 .nav-link.active::after {
   content: "";
@@ -404,7 +385,6 @@ h3 {
   background: var(--ink);
   margin: 5px 0;
   border-radius: 2px;
-  transition: all 0.2s;
 }
 
 .mobile-menu {
@@ -415,14 +395,14 @@ h3 {
   z-index: 59;
   padding: 24px;
   overflow-y: auto;
-  border-top: 1px solid var(--gray-200);
+  border-top: 2px solid var(--ink);
 }
 .mobile-menu.open { display: block; }
 .mobile-menu a {
   display: block;
   padding: 16px 8px;
   font-size: 18px;
-  font-weight: 700;
+  font-weight: 800;
   color: var(--ink);
   border-bottom: 1px solid var(--gray-200);
 }
@@ -465,12 +445,12 @@ h3 {
 }
 .hero-tertiary a {
   color: var(--blue);
-  font-weight: 700;
+  font-weight: 800;
   text-decoration: underline;
   text-underline-offset: 3px;
 }
 
-/* Interactive Journey / Route Widget */
+/* Interactive Journey Widget */
 .journey-widget {
   background: var(--white);
   border: 2px solid var(--ink);
@@ -484,8 +464,8 @@ h3 {
   position: absolute;
   top: -14px;
   right: 24px;
-  background: var(--blue);
-  color: var(--white);
+  background: var(--lime);
+  color: var(--ink);
   font-size: 12px;
   font-weight: 800;
   text-transform: uppercase;
@@ -579,13 +559,13 @@ h3 {
 .trust-label {
   font-size: 13px;
   color: var(--ink-soft);
-  font-weight: 700;
+  font-weight: 800;
   text-transform: uppercase;
   letter-spacing: 0.04em;
   margin-top: 4px;
 }
 
-/* Poster Cards / Tactile Sticker Cards */
+/* 4. Boxed Poster Cards & Hover Shadow Lift */
 .poster-card {
   background: var(--white);
   border: 2px solid var(--ink);
@@ -629,7 +609,7 @@ h3 {
   border: 2px solid var(--ink);
   border-radius: var(--radius-md);
   padding: 26px;
-  box-shadow: var(--shadow-sticker-sm);
+  box-shadow: var(--shadow-sm);
   transition: all 0.2s ease;
   display: flex;
   flex-direction: column;
@@ -638,7 +618,7 @@ h3 {
 
 .module-card:hover {
   border-color: var(--green);
-  box-shadow: 6px 6px 0px var(--green);
+  box-shadow: 8px 8px 0px var(--green);
   transform: translateY(-4px);
 }
 
@@ -668,7 +648,7 @@ h3 {
   border-radius: 99px;
 }
 
-/* Academic vs General Training Toggle Cards */
+/* Track Selector Cards */
 .track-selector-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -711,14 +691,14 @@ h3 {
   background: var(--white);
 }
 
-/* Spotlights & Dark Feature Cards */
+/* Spotlight Poster */
 .spotlight-poster {
   background: var(--ink);
   color: var(--white);
   border-radius: var(--radius-lg);
   border: 2px solid var(--ink);
   padding: 56px;
-  box-shadow: 8px 8px 0px var(--green);
+  box-shadow: 8px 8px 0px var(--lime);
   display: grid;
   grid-template-columns: 1.1fr 0.9fr;
   gap: 48px;
@@ -780,7 +760,7 @@ h3 {
   display: flex;
   flex-direction: column;
   gap: 16px;
-  box-shadow: var(--shadow-sticker-sm);
+  box-shadow: var(--shadow-sm);
   position: relative;
   transition: all 0.2s ease;
 }
@@ -799,8 +779,8 @@ h3 {
   position: absolute;
   top: -14px;
   left: 24px;
-  background: var(--green);
-  color: var(--white);
+  background: var(--lime);
+  color: var(--ink);
   font-size: 12px;
   font-weight: 800;
   letter-spacing: 0.04em;
@@ -815,7 +795,7 @@ h3 {
 .plan-for { font-size: 14px; color: var(--ink-soft); font-weight: 600; }
 .plan-cta { margin-top: auto; }
 
-/* Testimonials / Review Sticker Cards */
+/* Testimonials */
 .testi-card {
   border: 2px solid var(--ink);
   border-radius: var(--radius-md);
@@ -879,7 +859,7 @@ h3 {
   border-radius: var(--radius-md);
   padding: 24px;
   background: var(--white);
-  box-shadow: var(--shadow-sticker-sm);
+  box-shadow: var(--shadow-sm);
 }
 
 .step-num {
@@ -946,7 +926,7 @@ table.compare td:first-child, table.compare th:first-child { font-weight: 700; }
 .field label {
   display: block;
   font-size: 14px;
-  font-weight: 700;
+  font-weight: 800;
   margin-bottom: 8px;
   color: var(--ink);
 }
@@ -1201,8 +1181,10 @@ footer {
 .mb-8 { margin-bottom: 8px; }
 .mb-16 { margin-bottom: 16px; }
 .mb-24 { margin-bottom: 24px; }
+.mb-32 { margin-bottom: 32px; }
 .flex { display: flex; }
 .items-center { align-items: center; }
+.justify-between { justify-content: space-between; }
 .gap-8 { gap: 8px; }
 .gap-12 { gap: 12px; }
 .gap-16 { gap: 16px; }
