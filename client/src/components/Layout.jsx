@@ -4,8 +4,6 @@ import Footer from "./Footer.jsx";
 import StickyCta from "./StickyCta.jsx";
 
 const NO_STICKY_CTA_ROUTES = ["/study-abroad", "/login", "/thank-you", "/recorded-ielts-course"];
-// Recorded course page has its own in-page "Enrol" CTA repeated throughout —
-// a generic sticky bar there would compete with the on-page checkout button.
 
 export default function Layout() {
   const location = useLocation();
@@ -13,7 +11,6 @@ export default function Layout() {
 
   return (
     <>
-      <a className="skip-link" href="#main">Skip to content</a>
       <Header />
       <main id="main">
         <Outlet />
