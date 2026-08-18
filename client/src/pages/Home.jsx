@@ -56,10 +56,10 @@ export default function Home() {
               </span>
               <motion.span
                 className="sticker-callout"
-                animate={{ y: [0, -6, 0], rotate: [-2.5, -1, -2.5] }}
-                transition={{ repeat: Infinity, duration: 4, ease: "easeInOut" }}
+                animate={{ y: [0, -3, 0] }}
+                transition={{ repeat: Infinity, duration: 3.5, ease: "easeInOut" }}
               >
-                Strategy first ✍️
+                Strategy First 🎯
               </motion.span>
             </div>
 

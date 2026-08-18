@@ -153,82 +153,86 @@ h3 {
 .muted { color: var(--ink-soft); }
 .small { font-size: 14px; }
 
-/* Highlighter Marker Strips */
+/* Highlighter Text Accents */
 .marker-highlight {
   position: relative;
   display: inline-block;
   white-space: nowrap;
-  font-weight: 800;
-  color: var(--ink);
-  background: var(--lime);
-  padding: 1px 8px;
+  font-weight: 700;
+  color: var(--green-dark);
+  background: #E8F7F0;
+  padding: 2px 8px;
   border-radius: 6px;
-  transform: rotate(-1deg);
-  border: 1px solid rgba(18, 35, 49, 0.12);
-  box-shadow: 2px 2px 0px rgba(18, 35, 49, 0.08);
+  border-bottom: 2px solid var(--green);
 }
 
 .marker-highlight.green {
-  background: var(--green-200);
+  color: var(--green-dark);
+  background: #E8F7F0;
+  border-bottom: 2px solid var(--green);
 }
 
 .marker-highlight.cyan {
-  background: var(--blue-100);
-  transform: rotate(1deg);
+  color: var(--blue-dark);
+  background: #EBF3FE;
+  border-bottom: 2px solid var(--blue);
 }
 
-/* Handwritten Style Notes & Badges */
+/* Modern SaaS Callout Badges */
 .sticker-callout {
   display: inline-flex;
   align-items: center;
   gap: 6px;
-  background: var(--pastel-yellow);
-  border: 2px solid var(--ink);
+  background: #FFFFFF;
+  border: 1px solid var(--gray-200);
   padding: 6px 14px;
-  border-radius: 12px;
-  box-shadow: 3px 3px 0px var(--ink);
-  font-family: "Caveat", cursive;
-  font-size: 19px;
+  border-radius: 999px;
+  box-shadow: 0 2px 8px rgba(18, 35, 49, 0.06);
+  font-family: inherit;
+  font-size: 13.5px;
   font-weight: 700;
-  transform: rotate(-2.5deg);
   color: var(--ink);
-  transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  transition: all 0.2s ease;
 }
-.sticker-callout:hover { transform: rotate(0deg) scale(1.04); }
+.sticker-callout:hover {
+  border-color: var(--gray-300);
+  box-shadow: 0 4px 12px rgba(18, 35, 49, 0.1);
+}
 
 .sticker-callout.alt {
-  background: var(--pastel-pink);
-  transform: rotate(2deg);
+  background: #FFFFFF;
+  color: var(--blue);
+  border-color: #DBEAFE;
 }
 
-/* Eyebrows */
+/* Modern Clean Eyebrow Pills */
 .eyebrow {
   display: inline-flex;
   align-items: center;
   gap: 8px;
-  font-size: 13px;
-  font-weight: 800;
-  letter-spacing: 0.06em;
+  font-size: 12.5px;
+  font-weight: 700;
+  letter-spacing: 0.03em;
   text-transform: uppercase;
   color: var(--ink);
-  background: var(--white);
-  border: 2px solid var(--ink);
-  box-shadow: 2.5px 2.5px 0px var(--ink);
+  background: #FFFFFF;
+  border: 1px solid var(--gray-200);
+  box-shadow: 0 2px 6px rgba(18, 35, 49, 0.05);
   padding: 6px 14px;
   border-radius: var(--radius-pill);
   margin-bottom: 20px;
 }
 .eyebrow.green {
-  background: var(--green-50);
+  background: #F0FBF5;
   color: var(--green-dark);
-  border-color: var(--ink);
-  box-shadow: 2.5px 2.5px 0px var(--ink);
+  border-color: #D1FAE5;
+  box-shadow: 0 2px 6px rgba(24, 166, 106, 0.1);
 }
 .eyebrow.blue {
-  background: var(--blue-50);
-  color: var(--blue-dark);
-  border-color: var(--ink);
-  box-shadow: 2.5px 2.5px 0px var(--ink);
+  background: #F0F6FF;
+  color: var(--blue);
+  border-color: #DBEAFE;
+  box-shadow: 0 2px 6px rgba(37, 99, 235, 0.1);
 }
 
 /* Tactile Buttons */
