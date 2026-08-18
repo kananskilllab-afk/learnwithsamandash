@@ -42,60 +42,61 @@ export default function Header() {
   return (
     <>
       <header className={`site-header${scrolled ? " is-scrolled" : ""}`}>
-        {/* Solid white paper body */}
-        <div className="site-header-paper">
-          <div className="container header-inner">
-            {/* Brand Logo & Name */}
-            <Link to="/" className="brand" aria-label="Learn With Sam and Ash">
-              <span className="brand-badge">S&amp;A</span>
-              <span className="brand-name">Learn With Sam &amp; Ash</span>
-            </Link>
+        {/* Solid Opaque Torn Paper Backdrop covering full header with exact ripped clip-path */}
+        <div className="navbar-paper-backdrop" aria-hidden="true">
+          <div className="navbar-paper-shadow" />
+          <div className="navbar-paper-solid" />
+        </div>
 
-            {/* Right-aligned Navigation & Actions */}
-            <div className="header-right-group">
-              <nav className="nav-desktop" aria-label="Primary">
-                {NAV_LINKS.map((l) => {
-                  const isActive = location.pathname === l.to;
-                  return (
-                    <Link
-                      key={l.to}
-                      to={l.to}
-                      className={`nav-link${isActive ? " active" : ""}`}
-                    >
-                      {l.label}
-                    </Link>
-                  );
-                })}
-              </nav>
+        {/* Navbar Content */}
+        <div className="container header-inner">
+          {/* Brand Logo & Name */}
+          <Link to="/" className="brand" aria-label="Learn With Sam and Ash">
+            <span className="brand-badge">S&amp;A</span>
+            <span className="brand-name">Learn With Sam &amp; Ash</span>
+          </Link>
 
-              <div className="header-actions">
-                <Link to="/login" className="login-link">
-                  Login
-                </Link>
-                <Link
-                  to="/what-is-ielts#quiz"
-                  className="btn-header-cta"
-                  onClick={fireHeaderCta}
-                >
-                  Find My Path
-                </Link>
-                <button
-                  className="nav-toggle"
-                  aria-label="Toggle navigation menu"
-                  aria-expanded={open}
-                  onClick={toggle}
-                >
-                  <span className={`hamburger-bar bar1${open ? " open" : ""}`}></span>
-                  <span className={`hamburger-bar bar2${open ? " open" : ""}`}></span>
-                  <span className={`hamburger-bar bar3${open ? " open" : ""}`}></span>
-                </button>
-              </div>
+          {/* Right-aligned Navigation & Actions */}
+          <div className="header-right-group">
+            <nav className="nav-desktop" aria-label="Primary">
+              {NAV_LINKS.map((l) => {
+                const isActive = location.pathname === l.to;
+                return (
+                  <Link
+                    key={l.to}
+                    to={l.to}
+                    className={`nav-link${isActive ? " active" : ""}`}
+                  >
+                    {l.label}
+                  </Link>
+                );
+              })}
+            </nav>
+
+            <div className="header-actions">
+              <Link to="/login" className="login-link">
+                Login
+              </Link>
+              <Link
+                to="/what-is-ielts#quiz"
+                className="btn-header-cta"
+                onClick={fireHeaderCta}
+              >
+                Find My Path
+              </Link>
+              <button
+                className="nav-toggle"
+                aria-label="Toggle navigation menu"
+                aria-expanded={open}
+                onClick={toggle}
+              >
+                <span className={`hamburger-bar bar1${open ? " open" : ""}`}></span>
+                <span className={`hamburger-bar bar2${open ? " open" : ""}`}></span>
+                <span className={`hamburger-bar bar3${open ? " open" : ""}`}></span>
+              </button>
             </div>
           </div>
         </div>
-
-        {/* Hyper-realistic organic torn paper bottom edge */}
-        <div className="torn-edge-strip" aria-hidden="true" />
       </header>
 
       {/* Clean Mobile Drawer */}
