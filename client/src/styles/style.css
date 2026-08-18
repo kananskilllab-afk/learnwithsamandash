@@ -308,33 +308,32 @@ h3 {
   position: sticky;
   top: 0;
   z-index: 60;
-  background: transparent;
-  height: 82px;
+  background: #FFFFFF;
+  height: 74px;
   display: flex;
   align-items: center;
   position: relative;
-  transition: all 0.2s ease;
+  transition: box-shadow 0.2s ease;
 }
 
-/* Authentic Torn Paper Banner Backdrop */
-.site-header::before {
+/* Seamless Torn Paper Jagged Bottom Edge extending below header */
+.site-header::after {
   content: "";
   position: absolute;
-  top: 0;
   left: 0;
   right: 0;
-  bottom: -22px;
+  top: 100%;
+  height: 28px;
   background-image: url("/images/torn-paper-header.webp");
-  background-size: 100% 100%;
-  background-position: top center;
+  background-size: 100% 280px;
+  background-position: bottom center;
   background-repeat: no-repeat;
   pointer-events: none;
-  z-index: -1;
-  filter: drop-shadow(0 6px 12px rgba(18, 35, 49, 0.1));
+  filter: drop-shadow(0 4px 6px rgba(18, 35, 49, 0.08));
 }
 
-.site-header.is-scrolled::before {
-  filter: drop-shadow(0 10px 20px rgba(18, 35, 49, 0.14));
+.site-header.is-scrolled {
+  box-shadow: 0 4px 16px rgba(18, 35, 49, 0.06);
 }
 
 .header-inner {
