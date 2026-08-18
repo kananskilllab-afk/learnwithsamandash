@@ -308,31 +308,42 @@ h3 {
   position: sticky;
   top: 0;
   z-index: 100;
-  background-color: #FFFFFF;
-  background-image: url("/images/torn-paper-solid-header.webp");
-  background-repeat: no-repeat;
-  background-size: 100% 102px;
-  background-position: top center;
-  height: 96px;
-  display: flex;
-  align-items: flex-start;
-  padding-top: 14px;
-  position: relative;
-  /* Zero transparency, zero blend-mode, 100% opaque solid paper */
-  opacity: 1;
-  mix-blend-mode: normal;
-  backdrop-filter: none;
-  -webkit-backdrop-filter: none;
-  filter: drop-shadow(0 6px 14px rgba(18, 35, 49, 0.09));
+  width: 100%;
   transition: filter 0.2s ease;
+  pointer-events: auto;
 }
 
-.site-header::after {
-  display: none;
+/* 100% Solid Opaque White Paper Layer from top: 0 down to the tear */
+.site-header-paper {
+  width: 100%;
+  background-color: #FFFFFF;
+  background-image: radial-gradient(rgba(240, 238, 230, 0.4) 1px, transparent 0);
+  background-size: 24px 24px;
+  height: 74px;
+  display: flex;
+  align-items: center;
+  position: relative;
+  z-index: 2;
+  border-top: 0;
+}
+
+/* Hyper-Realistic Natural Torn Paper Bottom Edge Strip */
+.torn-edge-strip {
+  width: 100%;
+  height: 24px;
+  background-image: url("/images/torn-paper-edge.svg");
+  background-repeat: repeat-x;
+  background-size: 1440px 24px;
+  background-position: top left;
+  display: block;
+  position: relative;
+  z-index: 1;
+  margin-top: -1px; /* seamless bond between solid paper body and torn bottom */
+  pointer-events: none;
 }
 
 .site-header.is-scrolled {
-  filter: drop-shadow(0 8px 22px rgba(18, 35, 49, 0.14));
+  filter: drop-shadow(0 6px 18px rgba(18, 35, 49, 0.08));
 }
 
 .header-inner {
@@ -340,8 +351,6 @@ h3 {
   align-items: center;
   justify-content: space-between;
   width: 100%;
-  position: relative;
-  z-index: 2;
 }
 
 /* Brand */
