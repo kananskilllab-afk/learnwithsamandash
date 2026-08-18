@@ -42,13 +42,6 @@ export default function Header() {
   return (
     <>
       <header className={`site-header${scrolled ? " is-scrolled" : ""}`}>
-        {/* Solid Opaque Torn Paper Backdrop covering full header with exact ripped clip-path */}
-        <div className="navbar-paper-backdrop" aria-hidden="true">
-          <div className="navbar-paper-shadow" />
-          <div className="navbar-paper-solid" />
-        </div>
-
-        {/* Navbar Content */}
         <div className="container header-inner">
           {/* Brand Logo & Name */}
           <Link to="/" className="brand" aria-label="Learn With Sam and Ash">
