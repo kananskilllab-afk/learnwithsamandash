@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import { usePageView } from "../hooks/usePageView.js";
 import { track } from "../lib/analytics.js";
+import GoogleReviewsMarquee from "../components/GoogleReviewsMarquee.jsx";
 
 // Animation Variants for Continuous Scroll Flow & Cascading
 const sectionVariant = {
@@ -399,7 +400,7 @@ export default function Home() {
         </div>
       </motion.section>
 
-      {/* 5. TACTILE TESTIMONIAL & REVIEW STICKER SECTION */}
+      {/* 5. AUTHENTIC GOOGLE REVIEWS AUTO-SCROLLING MARQUEE */}
       <motion.section
         variants={sectionVariant}
         initial="hidden"
@@ -410,72 +411,19 @@ export default function Home() {
           <div className="section-head center">
             <span className="eyebrow">
               <img src="/images/icons/icon-star.webp" alt="Star" className="sticker-icon-sm" />
-              Proven Results
+              Verified Student Reviews
             </span>
-            <h2>What ambitious learners say</h2>
+            <h2>Loved by 10,000+ IELTS test takers worldwide</h2>
             <p className="lede mt-16" style={{ marginLeft: "auto", marginRight: "auto" }}>
-              Join thousands of students who went from guessing question patterns to achieving their target band.
+              See authentic Google reviews from students who transformed their preparation and achieved Band 7.5 to 8.5+.
             </p>
           </div>
 
-          <motion.div
-            className="grid-3"
-            variants={staggerContainer}
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, margin: "-50px" }}
-          >
-            {/* Review Card 1 (Rotated Left) */}
-            <motion.div variants={childCardVariant} className="poster-card rotate-left bg-pastel-green">
-              <span className="tag mb-16">Band 8.0 · Academic</span>
-              <div className="testi-stars">★★★★★</div>
-              <p className="testi-quote">
-                "Sam &amp; Ash gave me the exact writing templates that pushed my score from a stuck 6.5 to an 8.0 in just 4 weeks."
-              </p>
-              <div className="testi-who">
-                <span className="testi-avatar">P</span>
-                <div>
-                  <div className="testi-name">Priya Sharma</div>
-                  <div className="testi-course">Recorded IELTS Course</div>
-                </div>
-              </div>
-            </motion.div>
+          {/* Infinite Auto-Scrolling Google Reviews Marquee (Pauses on Hover) */}
+          <GoogleReviewsMarquee />
 
-            {/* Review Card 2 (Crisp White Center) */}
-            <motion.div variants={childCardVariant} className="poster-card bg-white">
-              <span className="tag mb-16">Band 7.5 · General Training</span>
-              <div className="testi-stars">★★★★★</div>
-              <p className="testi-quote">
-                "The mock speaking evaluations made all the difference. I knew exactly what examiners look for in fluency and coherence."
-              </p>
-              <div className="testi-who">
-                <span className="testi-avatar">R</span>
-                <div>
-                  <div className="testi-name">Rahul Mehta</div>
-                  <div className="testi-course">Recorded Course + Speaking Review</div>
-                </div>
-              </div>
-            </motion.div>
-
-            {/* Review Card 3 (Rotated Right) */}
-            <motion.div variants={childCardVariant} className="poster-card rotate-right bg-pastel-pink">
-              <span className="tag mb-16">Band 8.5 · Canada PR</span>
-              <div className="testi-stars">★★★★★</div>
-              <p className="testi-quote">
-                "No complicated jargon. Just systematic strategies for Reading and Listening that actually work under real exam timers."
-              </p>
-              <div className="testi-who">
-                <span className="testi-avatar">A</span>
-                <div>
-                  <div className="testi-name">Ananya Deshmukh</div>
-                  <div className="testi-course">Live Batch Alumni</div>
-                </div>
-              </div>
-            </motion.div>
-          </motion.div>
-
-          <p className="disclaimer text-center">
-            Individual results depend on initial foundation, practice consistency, and individual test-day execution.
+          <p className="disclaimer text-center mt-32">
+            Verified candidate reviews from official Google Business profile. Individual results depend on consistent practice.
           </p>
         </div>
       </motion.section>
