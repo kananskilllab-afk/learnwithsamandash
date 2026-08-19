@@ -588,20 +588,20 @@ export default function Home() {
       >
         <div className="container">
           <div className="cta-banner">
-            <h2>Ready to stop piecing IELTS together?</h2>
+            <h2>Ready to achieve your target IELTS score?</h2>
             <p>
-              Start the complete recorded course today and prepare with confidence, clarity, and system.
+              Join 10,000+ successful students. Choose between self-paced masterclasses, live batches, or free readiness tests.
             </p>
             <div className="cta-banner-actions">
               <Link
-                to="/recorded-ielts-course"
+                to="/courses"
                 className="btn btn-primary"
-                onClick={() => track("click_recorded_course_cta", { section: "final_cta" })}
+                onClick={() => track("click_courses_cta", { section: "final_cta" })}
               >
-                Start My IELTS Preparation
+                Explore All Courses &amp; Batches
               </Link>
               <Link to="/what-is-ielts#quiz" className="btn btn-outline-inverse">
-                Find My IELTS Path
+                Take the 2-Min Readiness Quiz
               </Link>
             </div>
           </div>

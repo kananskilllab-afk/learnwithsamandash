@@ -33,39 +33,86 @@ const STEPS = [
 ];
 
 function Result({ answers }) {
-  const need = answers.need;
+  const { need, stage, window } = answers;
 
+  // Case 1: Needs fixed classes and timetable
   if (need === "schedule") {
     return (
       <div>
-        <h3>You're a great fit for the Live IELTS Course.</h3>
-        <p className="muted mt-8">You told us you need fixed classes and accountability. Our live course gives you scheduled sessions with the same structured material as the recorded course.</p>
+        <span className="google-band-tag mb-12">Recommended: Live Batch</span>
+        <h3>You're a great fit for the Live IELTS Batch.</h3>
+        <p className="muted mt-8">
+          You indicated that you need structured classes and scheduled accountability. Our live batch gives you real-time trainer interaction, dedicated Q&A, and interactive workshop sessions.
+        </p>
         <div className="hero-ctas mt-24">
-          <Link className="btn btn-primary" to="/live-ielts-course">View the Next Live Batch</Link>
-          <Link className="btn btn-secondary" to="/recorded-ielts-course">Compare with Recorded Course</Link>
+          <Link className="btn btn-primary" to="/live-ielts-course">
+            View Live Batch Schedule
+          </Link>
+          <Link className="btn btn-secondary" to="/recorded-ielts-course">
+            Compare with Recorded
+          </Link>
         </div>
       </div>
     );
   }
-  if (need === "unsure") {
+
+  // Case 2: Short timeline (less than 1 month) OR needs targeted practice / retaker
+  if (window === "soon" || (stage === "practice" && window !== "later")) {
     return (
       <div>
-        <h3>Let's get you clarity first.</h3>
-        <p className="muted mt-8">Since you're not sure about your destination or test type yet, our team can help you figure out the right path alongside your IELTS prep.</p>
+        <span className="google-band-tag mb-12">Recommended: Mock Sprint & Review</span>
+        <h3>Targeted Mock Tests & Speaking Sprint</h3>
+        <p className="muted mt-8">
+          With your test approaching within 1 month and concepts already familiar, your highest return on time is full-length timed mocks, exam simulations, and expert diagnostic reviews for Speaking and Writing.
+        </p>
         <div className="hero-ctas mt-24">
-          <Link className="btn btn-primary" to="/study-abroad">Talk to a Study Abroad Expert</Link>
-          <Link className="btn btn-secondary" to="/recorded-ielts-course">Start the Recorded Course</Link>
+          <Link className="btn btn-primary" to="/mock-tests">
+            Start Diagnostic Mock Tests
+          </Link>
+          <Link className="btn btn-secondary" to="/recorded-ielts-course">
+            View Full Recorded Course
+          </Link>
         </div>
       </div>
     );
   }
+
+  // Case 3: 3+ months / not booked yet OR unsure of test requirements
+  if (window === "later" || need === "unsure") {
+    return (
+      <div>
+        <span className="google-band-tag mb-12">Recommended: Study Blueprint + Advisory</span>
+        <h3>Start with a Free 60-Day Study Plan</h3>
+        <p className="muted mt-8">
+          Since your test window is 3+ months out or you're finalizing your target countries, start with our free foundational study roadmap and speak with our study abroad advisors to match your university cutoffs.
+        </p>
+        <div className="hero-ctas mt-24">
+          <Link className="btn btn-primary" to="/study-abroad">
+            Talk to a Study Abroad Expert
+          </Link>
+          <Link className="btn btn-secondary" to="/mock-tests">
+            Download Free Study Plan
+          </Link>
+        </div>
+      </div>
+    );
+  }
+
+  // Case 4: Standard Beginner or Retaker with 1–3 months (The Sweet Spot for Recorded Course)
   return (
     <div>
-      <h3>The Recorded IELTS Course is your best next step.</h3>
-      <p className="muted mt-8">Based on your answers, a flexible, self-paced course fits how you want to prepare — all 4 modules, mock tests and review support included.</p>
+      <span className="google-band-tag mb-12">Recommended: Complete Strategy Course</span>
+      <h3>The Recorded IELTS Course is your best match.</h3>
+      <p className="muted mt-8">
+        With 1–3 months of prep time, our self-paced course gives you the complete 30-hour step-by-step strategy for all 4 modules, 7 full mock tests, and 7 personalized speaking evaluations on your own schedule.
+      </p>
       <div className="hero-ctas mt-24">
-        <Link className="btn btn-primary" to="/recorded-ielts-course">View the Recorded Course</Link>
-        <Link className="btn btn-secondary" to="/study-abroad">Also Planning to Study Abroad?</Link>
+        <Link className="btn btn-primary" to="/recorded-ielts-course">
+          View Recorded Course (₹5,000)
+        </Link>
+        <Link className="btn btn-secondary" to="/mock-tests">
+          Explore Free Resources
+        </Link>
       </div>
     </div>
   );
