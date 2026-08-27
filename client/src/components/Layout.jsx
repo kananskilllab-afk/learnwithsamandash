@@ -2,6 +2,7 @@ import { Outlet, useLocation } from "react-router-dom";
 import Header from "./Header.jsx";
 import Footer from "./Footer.jsx";
 import StickyCta from "./StickyCta.jsx";
+import LiveChatWidget from "./LiveChatWidget.jsx";
 
 const NO_STICKY_CTA_ROUTES = ["/study-abroad", "/login", "/thank-you", "/recorded-ielts-course"];
 
@@ -17,6 +18,7 @@ export default function Layout() {
       </main>
       <Footer />
       {!hideSticky && <StickyCta />}
+      <LiveChatWidget />
     </>
   );
 }

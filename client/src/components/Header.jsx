@@ -67,9 +67,6 @@ export default function Header() {
             </nav>
 
             <div className="header-actions">
-              <Link to="/login" className="login-link">
-                Login
-              </Link>
               <Link
                 to="/what-is-ielts#quiz"
                 className="btn-header-cta"
@@ -105,11 +102,9 @@ export default function Header() {
             </Link>
           ))}
           <div className="mobile-divider" />
-          <Link to="/recorded-ielts-course">Recorded Course (₹5,000)</Link>
+          <Link to="/recorded-ielts-course">Recorded IELTS Course (₹5,000)</Link>
           <Link to="/live-ielts-course">Live Batches</Link>
-          <Link to="/login" className="mobile-login">
-            Student Login
-          </Link>
+          <Link to="/courses">Spoken English Programs</Link>
         </div>
         <div className="mobile-menu-footer">
           <Link
