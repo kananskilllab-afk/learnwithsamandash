@@ -477,6 +477,87 @@ export default function Home() {
         </div>
       </motion.section>
 
+      {/* 6. SPOKEN ENGLISH & INTERVIEW BLUEPRINT PROGRAMS */}
+      <motion.section
+        className="bg-alt"
+        variants={sectionVariant}
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true, margin: "-80px" }}
+      >
+        <div className="container">
+          <div className="section-head center">
+            <span className="eyebrow green">
+              <img src="/images/icons/icon-speaking.webp" alt="Speaking" className="sticker-icon-sm" />
+              Spoken English &amp; Fluency
+            </span>
+            <h2>Transform your spoken English &amp; interview confidence</h2>
+            <p className="lede mt-16" style={{ marginLeft: "auto", marginRight: "auto" }}>
+              Beyond IELTS — master everyday conversational fluency, eliminate hesitation, and perform under job interview pressure with Ash.
+            </p>
+          </div>
+
+          <motion.div
+            className="plan-grid"
+            variants={staggerContainer}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, margin: "-50px" }}
+          >
+            {/* 1. 32-Day English Level Up */}
+            <motion.div variants={childCardVariant} className="plan-card recommended">
+              <span className="badge-recommended">32-Day Journey</span>
+              <span className="plan-name">32-Day English Level Up</span>
+              <span className="plan-for">Structured Speaking Transformation</span>
+              <p className="small muted">
+                Turn grammar, vocabulary, and communication skills into usable spoken English through recorded masterclasses, live rooms &amp; daily missions.
+              </p>
+              <div className="price-row mt-8">
+                <span className="price-current">₹2,999</span>
+                <span className="price-note">one-time cohort fee</span>
+              </div>
+              <Link to="/courses" className="btn btn-primary btn-block plan-cta">
+                Explore 32-Day Level Up
+              </Link>
+            </motion.div>
+
+            {/* 2. Speak with Ash */}
+            <motion.div variants={childCardVariant} className="plan-card">
+              <span className="google-band-tag">Monthly Club</span>
+              <span className="plan-name mt-8">Speak with Ash</span>
+              <span className="plan-for">Ongoing Human Speaking Membership</span>
+              <p className="small muted">
+                2 Live sessions with Ash/week, 1 trainer practice room, daily missions, and reviewed WhatsApp accountability.
+              </p>
+              <div className="price-row mt-8">
+                <span className="price-current">₹499</span>
+                <span className="price-note">per month</span>
+              </div>
+              <Link to="/courses" className="btn btn-secondary btn-block plan-cta">
+                Join Speak with Ash
+              </Link>
+            </motion.div>
+
+            {/* 3. Interview Success Blueprint */}
+            <motion.div variants={childCardVariant} className="plan-card">
+              <span className="google-band-tag">4-Week Intensive</span>
+              <span className="plan-name mt-8">Interview Success</span>
+              <span className="plan-for">English-First Interview Performance</span>
+              <p className="small muted">
+                15 recorded sessions + 10 live mocks, 60–90s pitch, STAR answer framework, and official /35 scorecard.
+              </p>
+              <div className="price-row mt-8">
+                <span className="price-current">₹1,999</span>
+                <span className="price-note">one-time fee</span>
+              </div>
+              <Link to="/courses" className="btn btn-secondary btn-block plan-cta">
+                View Interview Course
+              </Link>
+            </motion.div>
+          </motion.div>
+        </div>
+      </motion.section>
+
       {/* 7. CHOOSE YOUR PLAN */}
       <motion.section
         variants={sectionVariant}

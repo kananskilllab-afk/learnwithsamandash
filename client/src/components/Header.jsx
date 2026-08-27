@@ -3,11 +3,11 @@ import { Link, useLocation } from "react-router-dom";
 import { track } from "../lib/analytics.js";
 
 const NAV_LINKS = [
+  { to: "/courses", label: "All Courses" },
   { to: "/what-is-ielts", label: "IELTS Guide" },
-  { to: "/courses", label: "Courses" },
-  { to: "/mock-tests", label: "Mock Tests" },
+  { to: "/mock-tests", label: "Mock Tests & Diagnostic" },
   { to: "/success-stories", label: "Results" },
-  { to: "/about", label: "About" },
+  { to: "/about", label: "About Sam & Ash" },
   { to: "/study-abroad", label: "Study Abroad" }
 ];
 
