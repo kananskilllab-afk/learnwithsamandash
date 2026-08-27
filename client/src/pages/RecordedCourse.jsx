@@ -135,23 +135,10 @@ export default function RecordedCourse() {
         </div>
       </section>
 
+      {/* Enrolment Checkout */}
       <section id="enrol">
         <div className="container container-narrow">
           <Checkout course="Recorded IELTS Course" priceLabel="₹5,000" />
-        </div>
-      </section>
-
-      <section>
-        <div className="container">
-          <div className="cta-banner">
-            <h2>Stop building your IELTS preparation from scattered pieces.</h2>
-            <p>Use one structured course, follow the modules, practise, test yourself and get the support included in your plan.</p>
-            <div className="cta-banner-actions">
-              <a href="#enrol" className="btn btn-primary" onClick={() => track("click_recorded_course_cta", { section: "final_cta" })}>
-                Enrol Now — Recorded IELTS Course
-              </a>
-            </div>
-          </div>
         </div>
       </section>
     </>

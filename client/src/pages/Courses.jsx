@@ -320,23 +320,34 @@ export default function Courses() {
         </div>
       </motion.section>
 
-      {/* Path Quiz CTA */}
+      {/* Clean Diagnostic Guidance Next Step */}
       <motion.section
+        className="bg-alt"
         variants={sectionVariant}
         initial="hidden"
         whileInView="visible"
         viewport={{ once: true, margin: "-60px" }}
       >
-        <div className="container">
-          <div className="cta-banner">
-            <h2>Still wondering which option fits best?</h2>
-            <p>Take our 2-minute diagnostic quiz to receive a customized recommendation.</p>
-            <div className="cta-banner-actions">
-              <Link to="/what-is-ielts#quiz" className="btn btn-primary">
-                <img src="/images/icons/icon-target.webp" alt="Target" className="sticker-icon-sm" />
-                Find My IELTS Path
-              </Link>
-            </div>
+        <div className="container text-center">
+          <div className="section-head center mb-24">
+            <span className="eyebrow green">
+              <img src="/images/icons/icon-target.webp" alt="Target" className="sticker-icon-sm" />
+              Not Sure Where to Start?
+            </span>
+            <h2>Get an exact recommendation for your level</h2>
+            <p className="muted mt-8">
+              Answer 3 simple questions to determine whether you need structured foundation, speaking practice, or mock tests.
+            </p>
+          </div>
+          <div className="flex items-center justify-center gap-16 flex-wrap">
+            <Link to="/what-is-ielts#quiz" className="btn btn-primary">
+              <img src="/images/icons/icon-target.webp" alt="Target" className="sticker-icon-sm" />
+              Take the 2-Min Readiness Quiz
+            </Link>
+            <Link to="/mock-tests" className="btn btn-secondary">
+              <img src="/images/icons/icon-mock-tests.webp" alt="Mock Tests" className="sticker-icon-sm" />
+              Explore Free Mock Tests
+            </Link>
           </div>
         </div>
       </motion.section>

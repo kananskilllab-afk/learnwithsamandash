@@ -168,23 +168,39 @@ export default function About() {
         </div>
       </motion.section>
 
-      {/* 5. Final CTA */}
+      {/* 5. Clean Contextual Next Step */}
       <motion.section
+        className="bg-alt"
         variants={sectionVariant}
         initial="hidden"
         whileInView="visible"
         viewport={{ once: true, margin: "-60px" }}
       >
-        <div className="container">
-          <div className="cta-banner">
-            <h2>Start learning with Sam &amp; Ash today</h2>
-            <p>Join the recorded course and prepare with structure and clarity.</p>
-            <div className="cta-banner-actions">
-              <Link to="/recorded-ielts-course" className="btn btn-primary">
-                <img src="/images/icons/icon-target.webp" alt="Target" className="sticker-icon-sm" />
-                View the Recorded Course (₹5,000)
-              </Link>
-            </div>
+        <div className="container text-center">
+          <div className="section-head center mb-24">
+            <span className="eyebrow green">
+              <img src="/images/icons/icon-play.webp" alt="YouTube" className="sticker-icon-sm" />
+              Learn with Sam &amp; Ash
+            </span>
+            <h2>Ready to start your preparation?</h2>
+            <p className="muted mt-8">
+              Explore our full catalog of structured IELTS &amp; Spoken English masterclasses.
+            </p>
+          </div>
+          <div className="flex items-center justify-center gap-16 flex-wrap">
+            <Link to="/courses" className="btn btn-primary">
+              <img src="/images/icons/icon-lessons.webp" alt="Courses" className="sticker-icon-sm" />
+              Explore All Courses
+            </Link>
+            <a
+              href="https://www.youtube.com/@LearnWithSamAndAsh"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="btn btn-secondary"
+            >
+              <img src="/images/icons/icon-play.webp" alt="YouTube" className="sticker-icon-sm" />
+              Watch on YouTube (2.4M+)
+            </a>
           </div>
         </div>
       </motion.section>

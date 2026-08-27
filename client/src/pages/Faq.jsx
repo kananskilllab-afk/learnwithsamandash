@@ -85,14 +85,15 @@ export default function Faq() {
       </section>
 
       <section className="bg-alt">
-        <div className="container">
-          <div className="cta-banner">
+        <div className="container text-center">
+          <div className="section-head center mb-24">
+            <span className="eyebrow blue">Support &amp; Advisory</span>
             <h2>Still have questions?</h2>
-            <p>Start the recorded course, or talk to our team directly.</p>
-            <div className="cta-banner-actions">
-              <Link to="/recorded-ielts-course" className="btn btn-primary">Start Recorded Course</Link>
-              <Link to="/study-abroad" className="btn btn-outline-inverse">Talk to Us</Link>
-            </div>
+            <p className="muted mt-8">Our counseling and academic support team is here to assist you.</p>
+          </div>
+          <div className="flex items-center justify-center gap-16 flex-wrap">
+            <Link to="/courses" className="btn btn-primary">Browse All Courses</Link>
+            <Link to="/study-abroad" className="btn btn-secondary">Talk to an Advisor</Link>
           </div>
         </div>
       </section>

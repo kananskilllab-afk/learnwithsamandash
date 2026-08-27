@@ -48,14 +48,19 @@ export default function StudentSuccess() {
       </section>
 
       <section className="bg-alt">
-        <div className="container">
-          <div className="cta-banner">
-            <h2>Ready to start your own preparation journey?</h2>
-            <div className="cta-banner-actions">
-              <Link to="/recorded-ielts-course" className="btn btn-primary" onClick={() => track("click_recorded_course_cta", { section: "success_stories" })}>
-                Start My IELTS Preparation
-              </Link>
-            </div>
+        <div className="container text-center">
+          <div className="section-head center mb-24">
+            <span className="eyebrow green">Your Turn to Succeed</span>
+            <h2>Ready to achieve your target band?</h2>
+            <p className="muted mt-8">Explore our step-by-step masterclasses or take a diagnostic test.</p>
+          </div>
+          <div className="flex items-center justify-center gap-16 flex-wrap">
+            <Link to="/courses" className="btn btn-primary" onClick={() => track("click_courses_cta", { section: "success_stories" })}>
+              Explore All Courses
+            </Link>
+            <Link to="/mock-tests" className="btn btn-secondary">
+              Free Readiness Assessment
+            </Link>
           </div>
         </div>
       </section>
