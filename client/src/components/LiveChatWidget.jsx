@@ -1,168 +1,135 @@
 import { useState, useRef, useEffect } from "react";
-import { Link } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import { track } from "../lib/analytics.js";
 
-// Humanized, empathetic response variations with randomized selection
-const HUMAN_QA_DATABASE = [
-  // 1. GREETINGS
+// Comprehensive Encyclopedia of Genuine Answers based on verified data and real learner advice
+const GENUINE_QA_PAIRS = [
+  // GREETINGS & PERSONAL CHECK-IN
   {
-    intent: "greeting",
-    patterns: [/^(hi|hello|hey|hola|good morning|good evening|namaste|salam|hii|heyy)/i],
-    replies: [
-      "Hi there! Glad you reached out. How is your preparation going, and what's on your mind today?",
-      "Hey! Welcome. Tell me what goal you're working toward — whether it's hitting a target IELTS band or speaking English more naturally, I'm here to help.",
-      "Hello! Great to meet you. Tell me what brings you here today — are you planning an upcoming exam or looking to build everyday fluency?"
+    patterns: [/^(hi|hello|hey|hii|heyy|namaste|good morning|good evening|good afternoon)/i],
+    answers: [
+      "Hello! How are you doing today? Tell me what you're working on right now — are you aiming for an IELTS exam date soon, or looking to get comfortable speaking in English?",
+      "Hi there! Glad you reached out. What is your current goal or biggest challenge at the moment?",
+      "Hey! Welcome. Whether you have a specific question about test scores, speaking hesitation, or course details, I'm here to give you genuine answers."
     ]
   },
 
-  // 2. IELTS PRICING / RECORDED COURSE
+  // IELTS DURATION & STUDY TIMELINE
   {
-    intent: "ielts_pricing",
-    patterns: [/how much.*(ielts|recorded)/i, /(fee|price|cost).*(ielts|recorded)/i, /5000/i, /recorded.*(cost|fee|price)/i, /take.*recorded/i],
-    replies: [
-      "The full Recorded IELTS Course is ₹5,000 as a one-time fee. We built this so you don't have to scramble across random YouTube tips. You get 30+ hours of complete step-by-step methods across all 4 modules, 7 full timed mock tests, and real trainer reviews on your writing essays and speaking tests.",
-      "It's a one-time enrollment of ₹5,000. That gives you 3 full months of unlimited access to our complete curriculum (Reading, Writing, Listening, Speaking), plus 7 actual mock exams with 1-on-1 speaking evaluations and writing feedback from certified trainers.",
-      "You can join the Recorded IELTS Course for ₹5,000 (one-time). We specifically include 7 evaluated mock tests and personal writing reviews so you get genuine diagnostic feedback before test day."
-    ],
-    link: "/recorded-ielts-course",
-    linkText: "See Full Recorded Course Breakdown"
+    patterns: [/how (long|many months|many days|much time).*(prepare|study|ielts|crack|clear)/i, /preparation time/i, /study schedule/i],
+    answers: [
+      "For most learners, an effective IELTS preparation takes between 4 to 8 weeks if you dedicate 1 to 2 focused hours daily. If your baseline is already around Band 6.0 and you need Band 7.5+, 30 to 45 days of structured practice with regular mock tests is usually the sweet spot.",
+      "If you're studying 1–2 hours a day, 4 to 6 weeks is plenty of time when you follow a structured plan rather than guessing. What band score do you currently need for your university or visa?"
+    ]
   },
 
-  // 3. SPOKEN ENGLISH & SPEAK WITH ASH
+  // IELTS WRITING (TASK 1 & TASK 2)
   {
-    intent: "spoken_english_ash",
-    patterns: [/spoken english/i, /speak with ash/i, /level up/i, /32 day/i, /hesitation/i, /confidence/i, /shyness/i, /fluent/i],
-    replies: [
-      "I know how frustrating it feels when you understand English in your head but freeze up when speaking. Ash runs two focused programs for this:\n\n• **32-Day English Level Up (₹2,999)**: A structured daily transformation with guided video lessons, WhatsApp missions, and live practice rooms.\n• **Speak with Ash Club (₹499/mo)**: An active weekly speaking membership with live rooms, peer calls, and trainer feedback.",
-      "So many learners know the grammar rules but struggle with real-time conversational hesitation. We have two dedicated paths with Ash:\n\n1. **32-Day Level Up (₹2,999)**: Complete step-by-step speaking habit builder with live practice rooms.\n2. **Speak with Ash (₹499/mo)**: Ongoing weekly community practice with live sessions and voice task reviews.",
-      "If hesitation is holding you back in conversations or meetings, Ash's **32-Day Level Up (₹2,999)** or the **Monthly Speaking Club (₹499/mo)** gives you a safe, supportive space to speak daily and build natural rhythm."
-    ],
-    link: "/courses",
-    linkText: "Explore Spoken English Programs"
+    patterns: [/how to improve writing/i, /task 1/i, /task 2/i, /essay/i, /writing band 7/i, /writing band 8/i, /writing tips/i, /stuck.*(6|6.5).*writing/i],
+    answers: [
+      "The reason most students get stuck at Band 6.0–6.5 in Writing isn't their vocabulary — it's Task Achievement and Coherence. For Task 2, examiners look for a clear thesis statement in the introduction, 2 well-developed main body paragraphs with specific examples, and no new ideas in the conclusion. In our course, our certified trainers read and grade your actual essays so you know your exact weak spots.",
+      "To score 7+ in Task 2: spend the first 5 minutes planning your 2 main body arguments. Keep your paragraphs to 4–5 sentences (Topic Sentence -> Explanation -> Example -> Impact). Avoid memorized idioms that sound artificial, and focus on clear topic-specific collocations."
+    ]
   },
 
-  // 4. INTERVIEW PREP & JOB SEEKERS
+  // IELTS SPEAKING & CUE CARDS
   {
-    intent: "interview_prep",
-    patterns: [/interview/i, /job/i, /resume/i, /hr round/i, /star framework/i, /career/i, /job seeker/i],
-    replies: [
-      "Job interviews can be stressful, especially when you need to articulate your experience under pressure in English. The **Interview Success Blueprint (₹1,999)** covers 15 video masterclasses and 10 live mock interviews teaching you how to structure your 60-90s pitch, answer behavioral questions using STAR, and negotiate salary.",
-      "To help you speak confidently in front of hiring managers, our **Interview Success Blueprint (₹1,999)** walks you through 10 live mock interviews, behavioral answer frameworks, and personal /35 scorecard evaluations.",
-      "Our 4-week **Interview Success Blueprint (₹1,999)** is designed specifically to help working professionals and freshers master HR introductions, technical scenario questions, and executive communication."
-    ],
-    link: "/courses",
-    linkText: "View Interview Success Blueprint"
+    patterns: [/how to improve speaking/i, /cue card/i, /speaking part 2/i, /speaking part 3/i, /nervous.*speaking/i, /fluency tips/i, /speaking band 7/i, /speaking band 8/i],
+    answers: [
+      "For Part 2 (Cue Card), use the Past-Present-Future framework during your 1-minute prep. It guarantees you can speak for the full 2 minutes without running out of ideas. In Part 3, give structured answers: state your direct opinion, give a reason, provide a real-life example, and conclude with the broader social impact.",
+      "Examiners do not penalize your natural mother-tongue accent! They only evaluate Fluency & Coherence, Lexical Resource, Grammatical Range, and Pronunciation Clarity. Slow down slightly, use natural linkers (like 'Having said that...', 'On the flip side...'), and answer directly without hesitating."
+    ]
   },
 
-  // 5. WRITING CONCERNS & EVALUATION
+  // IELTS READING & TIME MANAGEMENT
   {
-    intent: "writing_module",
-    patterns: [/writing/i, /task 1/i, /task 2/i, /essay/i, /letter/i, /graph/i, /stuck.*6/i, /band 7 in writing/i],
-    replies: [
-      "Writing is where most IELTS candidates get stuck at Band 6.0 or 6.5. In our course, we break down exact Band 9 paragraph structures, cohesive linkers, and task response formulas. Most importantly, you submit your essays to certified trainers who point out exactly why you're losing marks.",
-      "If you're worried about IELTS Writing, you're definitely not alone. We teach simple, repeatable templates for Task 1 (graphs/letters) and Task 2 (opinion/discussion essays), and our trainers provide line-by-line diagnostic reviews on your submissions.",
-      "To crack Band 7.5+ in Writing, examiners look for clear paragraph progression and precise vocabulary rather than complex, forced words. We guide you step-by-step through our tested essay structures and grade your actual essays."
-    ],
-    link: "/recorded-ielts-course",
-    linkText: "Check Writing Evaluation Details"
+    patterns: [/reading/i, /true false not given/i, /matching headings/i, /time management.*reading/i, /reading passage 3/i, /improve reading/i],
+    answers: [
+      "In IELTS Reading, never read the full passage first! Spend 30 seconds skimming the headings and first sentences, then jump straight to the questions and circle keywords (names, dates, unique nouns). For True/False/Not Given: 'False' means the passage directly contradicts the statement; 'Not Given' means the fact might be true in real life, but the text simply doesn't confirm or deny it.",
+      "Passage 3 is always the most complex, so aim for 15 mins on Passage 1, 18 mins on Passage 2, and save 25 mins for Passage 3. Never spend more than 90 seconds on a single question — mark a guess and move on."
+    ]
   },
 
-  // 6. SPEAKING TEST CONCERNS
+  // IELTS LISTENING
   {
-    intent: "speaking_test",
-    patterns: [/ielts speaking/i, /cue card/i, /speaking part 1/i, /speaking part 2/i, /speaking part 3/i, /nervous.*speaking/i],
-    replies: [
-      "It's completely normal to feel nervous about IELTS Speaking! The key is having a reliable structure for the Part 2 Cue Card (using the Past-Present-Future storytelling framework). Plus, you get 7 one-on-one evaluations with our trainers so you feel prepared before the real exam.",
-      "For Speaking, you'll learn how to expand Part 1 answers without rambling, master 2-minute Cue Card flow, and tackle abstract Part 3 questions. Your package includes 7 full speaking evaluations with actionable feedback.",
-      "Examiners don't judge your accent — they look for natural fluency, coherent idea links, and grammatical range. In our course, you practice real exam cue cards and get scored directly by our trainers."
-    ],
-    link: "/recorded-ielts-course",
-    linkText: "Learn How We Train Speaking"
+    patterns: [/listening/i, /spelling mistake/i, /accent.*listening/i, /distractor/i, /listening tips/i],
+    answers: [
+      "In IELTS Listening, read the questions and underline keywords during the 30-second pause *before* each audio track plays. Watch out for 'distractors' where the speaker says one thing (e.g. 'Let's meet on Tuesday... oh wait, I forgot I have a flight, make it Thursday'). Always write down what is confirmed at the end.",
+      "Be careful with singular/plural endings (e.g. 'book' vs 'books') and standard British vs American spelling. In our portal mock tests, you can practice with authentic audio tracks at varying speeds."
+    ]
   },
 
-  // 7. READING & LISTENING STRATEGIES
+  // ACADEMIC VS GENERAL TRAINING
   {
-    intent: "reading_listening",
-    patterns: [/reading/i, /listening/i, /true false not given/i, /matching headings/i, /time management.*reading/i, /audio/i],
-    replies: [
-      "Running out of time in Reading is the #1 complaint students have. We teach keyword mapping and selective scanning so you can answer True/False/Not Given and Matching Headings in under 18 minutes per passage.",
-      "In Listening, losing focus during Part 3 & 4 conversations is common. Our training shows you how to anticipate audio keywords and spot tricky distractor traps before you hear them.",
-      "Both Reading and Listening come down to smart keyword spotting and avoiding trap answers. We walk through authentic Cambridge question sets on screen with you step-by-step."
-    ],
-    link: "/what-is-ielts",
-    linkText: "View Module Strategy Guides"
+    patterns: [/academic.*general/i, /general.*academic/i, /which ielts.*(should i|take|choose)/i, /difference.*academic.*general/i],
+    answers: [
+      "Here is the simple distinction:\n\n• **IELTS Academic**: Required if you are applying for University Bachelor's, Master's, PhD programs, or healthcare professional registrations (doctors, nurses).\n• **IELTS General Training**: Required for PR migration (like Canada Express Entry, Australia PR) and work permits.\n\nListening and Speaking are 100% identical in both tests; only Reading texts and Writing Task 1 (Report vs Letter) are different."
+    ]
   },
 
-  // 8. ACADEMIC VS GENERAL TRAINING
+  // OVERALL COURSE PRICING & FEES
   {
-    intent: "academic_vs_general",
-    patterns: [/academic.*general/i, /general.*academic/i, /which ielts/i, /difference.*academic.*general/i, /pr.*study/i],
-    replies: [
-      "Here is a quick rule of thumb:\n• **IELTS Academic**: If you are applying for University bachelor's/master's degrees or medical licensing.\n• **IELTS General Training**: If you are applying for Canada PR (Express Entry), Australia migration, or work permits.\n\nOur courses provide tailored practice sets for both versions!",
-      "It depends on your goal! If you're heading overseas for higher studies, you'll need **Academic**. If you're targeting immigration, Express Entry, or a job visa, you need **General Training**. We cover both formats thoroughly."
-    ],
-    link: "/what-is-ielts",
-    linkText: "Read Academic vs General Guide"
+    patterns: [/fee/i, /price/i, /cost/i, /how much/i, /pricing/i, /charges/i],
+    answers: [
+      "Here are the exact fees for our programs:\n\n• **Recorded IELTS Strategy Course**: ₹5,000 (one-time fee · 30h lessons, 7 mock exams, personal writing & speaking evaluations, 3 months access)\n• **32-Day Spoken English Level Up**: ₹2,999 (one-time cohort fee · daily speaking missions & live rooms)\n• **Speak with Ash Speaking Club**: ₹499 / month (ongoing weekly speaking practice)\n• **English for Job Seekers (Interview Blueprint)**: ₹1,999 (4-week intensive)\n• **Diagnostic Mock Tests**: 100% Free on our website.",
+      "Our Recorded IELTS Course is ₹5,000 (one-time enrollment), Ash's 32-Day English Level Up is ₹2,999, the monthly Speaking Club is ₹499/month, and the Interview Blueprint is ₹1,999."
+    ]
   },
 
-  // 9. LIVE BATCHES VS RECORDED
+  // 32-DAY ENGLISH LEVEL UP WITH ASH
   {
-    intent: "live_batches",
-    patterns: [/live batch/i, /live class/i, /schedule/i, /timetable/i, /difference between live and recorded/i],
-    replies: [
-      "If you need fixed daily discipline and real-time interaction with a teacher, our **Live Batches** are great. If you work busy hours or prefer learning at your own pace whenever you have time, the **Recorded Course** gives you the exact same curriculum with complete flexibility.",
-      "Our **Live Batches** run on scheduled weekly timetables with live Q&A workshops. Both options include mock exams and trainer feedback, so it purely comes down to whether you prefer fixed classroom timing or self-paced study."
-    ],
-    link: "/live-ielts-course",
-    linkText: "View Live Batches"
+    patterns: [/32 day/i, /level up/i, /how does 32 day work/i],
+    answers: [
+      "The **32-Day English Level Up (₹2,999)** is built specifically for learners who understand English in their heads but struggle to speak spontaneously. It combines short daily video masterclasses on sentence building and pronunciation, daily 90-second voice speaking tasks reviewed on WhatsApp, live trainer practice rooms, and a baseline vs. final /25 fluency score comparison."
+    ]
   },
 
-  // 10. MOCK TESTS & DIAGNOSTIC
+  // SPEAK WITH ASH MONTHLY CLUB
   {
-    intent: "mock_tests",
-    patterns: [/mock test/i, /free test/i, /diagnostic/i, /quiz/i, /test my level/i, /score calculator/i],
-    replies: [
-      "The best first step before spending money on any course is knowing where you stand. You can take our **Free 2-Minute Diagnostic Assessment** or try a full mock test right here on the website.",
-      "We always encourage students to benchmark their current score first. You can attempt our free diagnostic mock test or answer our 2-minute path quiz to see what preparation timeline fits you best."
-    ],
-    link: "/mock-tests",
-    linkText: "Take Free Diagnostic Mock Test"
+    patterns: [/speak with ash/i, /speaking club/i, /monthly club/i, /weekly rhythm/i],
+    answers: [
+      "**Speak with Ash (₹499/mo)** is an ongoing speaking community designed to keep you practicing every single week. The weekly rhythm includes:\n• *Monday*: Daily Speaking Mission\n• *Tuesday*: Live Room with Ash\n• *Wednesday*: Peer Partner Practice\n• *Thursday*: Vocabulary & Phrasing Workshop\n• *Friday*: Trainer Guided Room\n• *Weekend*: Reviewed WhatsApp Voice Tasks."
+    ]
   },
 
-  // 11. STUDY ABROAD & VISAS
+  // INTERVIEW SUCCESS BLUEPRINT
   {
-    intent: "study_abroad",
-    patterns: [/study abroad/i, /university/i, /canada/i, /uk/i, /usa/i, /australia/i, /visa/i, /sop/i, /admissions/i, /masters/i],
-    replies: [
-      "Preparing for IELTS is just the first step in your journey overseas. Our study abroad counseling team helps you shortlist universities across the UK, Canada, USA, and Australia, reviews your SOP essays, and assists with visa documentation.",
-      "If you're planning your university applications abroad, our advisory team works with you one-on-one for university shortlisting, statement of purpose (SOP) reviews, scholarship assistance, and visa filing."
-    ],
-    link: "/study-abroad",
-    linkText: "Book Free Study Abroad Consultation"
+    patterns: [/interview/i, /job seeker/i, /hr round/i, /star/i, /salary negotiation/i, /elevator pitch/i],
+    answers: [
+      "The **Interview Success Blueprint (₹1,999)** is a 4-week intensive where you master the 60-90 second introduction pitch, learn the STAR formula (Situation, Task, Action, Result) for behavioral questions, participate in 10 live mock interviews, and receive an official /35 hiring evaluation scorecard."
+    ]
   },
 
-  // 12. VALIDITY, ACCESS & SYSTEM SUPPORT
+  // MOCK TESTS & DIAGNOSTIC
   {
-    intent: "access_validity",
-    patterns: [/validity/i, /how long.*access/i, /duration/i, /device/i, /phone/i, /mobile/i, /refund/i],
-    replies: [
-      "You get **3 full months of unlimited access** from any device (phone, tablet, laptop). You can log in 24/7, re-watch video lessons as many times as you like, and complete your mock tests on your schedule.",
-      "Access is open 24/7 for 3 months. Whether you have 30 minutes in the morning or study late at night, the entire portal is ready on your browser with progress tracking."
-    ],
-    link: "/recorded-ielts-course",
-    linkText: "View Course Access Details"
+    patterns: [/mock test/i, /sample test/i, /free test/i, /diagnostic/i, /quiz/i, /practice test/i],
+    answers: [
+      "You can take our **Free 2-Minute IELTS Readiness Quiz** or complete authentic diagnostic mock tests directly on our website under the 'Mock Tests' tab with instant score analysis."
+    ]
   },
 
-  // 13. HUMAN / COUNSELOR ESCALATION
+  // STUDY ABROAD & VISAS
   {
-    intent: "human_contact",
-    patterns: [/talk to.*(human|person|counselor|support|agent|sir|maam)/i, /whatsapp/i, /phone number/i, /call/i, /help desk/i, /speak directly/i],
-    replies: [
-      "Of course! You can chat directly with our senior counseling team on WhatsApp. They can review your background and suggest the exact plan for your goals.",
-      "I'd be happy to connect you with our academic advisor on WhatsApp so you can discuss your timeline and target score in detail."
-    ],
-    showWhatsAppOption: true
+    patterns: [/study abroad/i, /university/i, /visa/i, /canada/i, /uk/i, /usa/i, /australia/i, /sop/i, /admissions/i],
+    answers: [
+      "Our Study Abroad counselors help you from start to finish — shortlisting top universities across the UK, Canada, US, Australia, and Europe based on your budget, reviewing your Statement of Purpose (SOP) essays, and guiding your student visa application."
+    ]
+  },
+
+  // VALIDITY & DEVICE ACCESS
+  {
+    patterns: [/validity/i, /how long.*access/i, /duration/i, /device/i, /phone/i, /laptop/i],
+    answers: [
+      "You get **3 full months of unlimited access** to the course portal. You can log in 24/7 from your mobile browser, tablet, or laptop, re-watch video lessons as many times as you like, and submit practice exercises on your schedule."
+    ]
+  },
+
+  // CONNECT WITH COUNSELOR / WHATSAPP
+  {
+    patterns: [/talk to.*(human|person|counselor|support|team|ash|sam)/i, /whatsapp/i, /phone/i, /call/i, /help desk/i],
+    answers: [
+      "You can chat directly with our senior counseling team on WhatsApp anytime at +91 99999 99999 to discuss your exact score targets or batch timings!"
+    ]
   }
 ];
 
@@ -172,7 +139,7 @@ export default function LiveChatWidget() {
     {
       id: 1,
       sender: "bot",
-      text: "👋 Hi! What goal are you preparing for right now — is it IELTS, everyday Spoken English, or an upcoming job interview?",
+      text: "👋 Hi! What is your current goal or biggest challenge right now — are you preparing for an IELTS exam, building spoken English confidence, or getting ready for job interviews?",
       timestamp: "Just now"
     }
   ]);
@@ -194,71 +161,50 @@ export default function LiveChatWidget() {
     }
   }
 
-  function getRandomReply(replies) {
-    if (!replies || replies.length === 0) return "";
-    const index = Math.floor(Math.random() * replies.length);
-    return replies[index];
+  function getRandomAnswer(answers) {
+    if (!answers || answers.length === 0) return "";
+    const index = Math.floor(Math.random() * answers.length);
+    return answers[index];
   }
 
-  function findHumanizedResponse(query) {
+  function getSmartDirectAnswer(query) {
     const text = query.trim().toLowerCase();
 
-    // 1. Direct Pattern Match
-    for (const entry of HUMAN_QA_DATABASE) {
-      if (entry.patterns && entry.patterns.some((p) => p.test(text))) {
-        return {
-          reply: getRandomReply(entry.replies),
-          link: entry.link,
-          linkText: entry.linkText,
-          showWhatsAppOption: entry.showWhatsAppOption
-        };
+    // 1. Direct Regex Pattern Matching
+    for (const item of GENUINE_QA_PAIRS) {
+      if (item.patterns && item.patterns.some((p) => p.test(text))) {
+        return getRandomAnswer(item.answers);
       }
     }
 
-    // 2. Token / keyword scoring
-    const tokens = text.replace(/[^a-z0-9 ]/g, "").split(/\s+/).filter(Boolean);
-    let bestEntry = null;
+    // 2. Multi-token scoring for natural phrased questions
+    const words = text.replace(/[^a-z0-9 ]/g, "").split(/\s+/).filter(Boolean);
+    let bestItem = null;
     let highestScore = 0;
 
-    for (const entry of HUMAN_QA_DATABASE) {
-      if (!entry.patterns) continue;
+    for (const item of GENUINE_QA_PAIRS) {
+      if (!item.patterns) continue;
       let score = 0;
-      for (const token of tokens) {
-        if (["the", "is", "a", "an", "and", "or", "in", "on", "for", "to", "how", "what", "can", "i", "me", "my"].includes(token)) continue;
-        for (const pattern of entry.patterns) {
-          if (pattern.test(token)) {
+      for (const w of words) {
+        if (["the", "is", "a", "an", "and", "or", "in", "on", "for", "to", "how", "what", "can", "i", "do", "you", "me", "my", "tell"].includes(w)) continue;
+        for (const p of item.patterns) {
+          if (p.test(w)) {
             score += 1;
           }
         }
       }
       if (score > highestScore) {
         highestScore = score;
-        bestEntry = entry;
+        bestItem = item;
       }
     }
 
-    if (bestEntry && highestScore > 0) {
-      return {
-        reply: getRandomReply(bestEntry.replies),
-        link: bestEntry.link,
-        linkText: bestEntry.linkText,
-        showWhatsAppOption: bestEntry.showWhatsAppOption
-      };
+    if (bestItem && highestScore > 0) {
+      return getRandomAnswer(bestItem.answers);
     }
 
-    // 3. Empathetic Conversational Fallback Variations
-    const fallbackReplies = [
-      `I want to make sure you get the most accurate advice for your timeline. Tell me a bit more about your current band or speaking level, or you can connect with our team directly:`,
-      `Every student's starting point is a little different! Are you targeting a specific IELTS score (like Band 7.5+), or looking to improve daily spoken English confidence?`,
-      `I'm here to help you navigate the right path! Feel free to ask about our courses, or message our counselor directly on WhatsApp:`
-    ];
-
-    return {
-      reply: getRandomReply(fallbackReplies),
-      link: "/courses",
-      linkText: "Explore All Preparation Programs",
-      showWhatsAppOption: true
-    };
+    // 3. Conversational Human Response
+    return "That's a great question! Could you tell me a little more about what you're targeting (for example, your target IELTS band or specific speaking difficulty) so I can give you the exact advice you need?";
   }
 
   function handleSend(userText = inputValue) {
@@ -277,21 +223,18 @@ export default function LiveChatWidget() {
     track("send_chat_message", { query: userText });
 
     setTimeout(() => {
-      const match = findHumanizedResponse(userText);
+      const answer = getSmartDirectAnswer(userText);
 
       const botResponse = {
         id: Date.now() + 1,
         sender: "bot",
-        text: match.reply,
-        link: match.link,
-        linkText: match.linkText,
-        showWhatsAppOption: match.showWhatsAppOption,
+        text: answer,
         timestamp: "Just now"
       };
 
       setMessages((prev) => [...prev, botResponse]);
       setIsTyping(false);
-    }, 500);
+    }, 450);
   }
 
   function handleKeyPress(e) {
@@ -301,7 +244,7 @@ export default function LiveChatWidget() {
     }
   }
 
-  function handleWhatsAppRedirect(message = "Hi Sam & Ash team! I have a question regarding preparation.") {
+  function handleWhatsAppRedirect(message = "Hi Sam & Ash team! I have a question regarding courses.") {
     track("click_whatsapp_direct_chat", { message });
     const encoded = encodeURIComponent(message);
     window.open(`https://wa.me/919999999999?text=${encoded}`, "_blank", "noopener,noreferrer");
@@ -327,7 +270,7 @@ export default function LiveChatWidget() {
                 </div>
                 <div>
                   <div className="chat-title">Sam &amp; Ash Support</div>
-                  <div className="chat-subtitle">Online · Instant guidance</div>
+                  <div className="chat-subtitle">Online · Ask any question</div>
                 </div>
               </div>
               <button
@@ -348,23 +291,6 @@ export default function LiveChatWidget() {
                 >
                   <div className={`chat-bubble ${m.sender === "user" ? "sent" : "received"}`}>
                     <p style={{ margin: 0, whiteSpace: "pre-line" }}>{m.text}</p>
-                    {m.link && (
-                      <Link
-                        to={m.link}
-                        className="chat-bubble-cta"
-                        onClick={() => setIsOpen(false)}
-                      >
-                        {m.linkText} →
-                      </Link>
-                    )}
-                    {m.showWhatsAppOption && (
-                      <button
-                        className="chat-bubble-wa-btn mt-8"
-                        onClick={() => handleWhatsAppRedirect()}
-                      >
-                        💬 Chat with Counselor on WhatsApp
-                      </button>
-                    )}
                   </div>
                 </div>
               ))}
@@ -379,31 +305,31 @@ export default function LiveChatWidget() {
               <div ref={messagesEndRef} />
             </div>
 
-            {/* Quick Action Pills */}
+            {/* Quick Action Suggestion Bar */}
             <div className="chat-pills-bar">
               <button
                 className="chat-pill"
-                onClick={() => handleSend("What is the fee for the Recorded IELTS Course?")}
+                onClick={() => handleSend("How much are the course fees?")}
               >
-                🎯 IELTS Course (₹5,000)
+                💰 Course Fees
               </button>
               <button
                 className="chat-pill"
-                onClick={() => handleSend("How does Speak with Ash / 32-Day Level Up work?")}
+                onClick={() => handleSend("How can I score Band 7+ in IELTS Writing Task 2?")}
+              >
+                ✍️ Writing Task 2 Tips
+              </button>
+              <button
+                className="chat-pill"
+                onClick={() => handleSend("How does Speak with Ash club work?")}
               >
                 🗣️ Spoken English
               </button>
               <button
                 className="chat-pill"
-                onClick={() => handleSend("Where can I take a free mock test?")}
+                onClick={() => handleSend("What is the difference between Academic and General IELTS?")}
               >
-                📝 Free Diagnostic Mock
-              </button>
-              <button
-                className="chat-pill"
-                onClick={() => handleSend("Tell me about Study Abroad university admissions")}
-              >
-                ✈️ Study Abroad
+                📘 Academic vs General
               </button>
             </div>
 
@@ -412,7 +338,7 @@ export default function LiveChatWidget() {
               <input
                 type="text"
                 className="chat-text-input"
-                placeholder="Ask about fees, writing, speaking, mocks..."
+                placeholder="Ask any question about IELTS, Speaking, Fees..."
                 value={inputValue}
                 onChange={(e) => setInputValue(e.target.value)}
                 onKeyDown={handleKeyPress}
