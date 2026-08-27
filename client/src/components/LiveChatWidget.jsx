@@ -1,9 +1,66 @@
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
+import { Link } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import { track } from "../lib/analytics.js";
 
+const KNOWLEDGE_BASE = [
+  {
+    keywords: ["ielts", "recorded", "course", "fee", "price", "cost", "5000", "modules", "band 7", "band 8"],
+    reply: "Our flagship **Recorded IELTS Course (₹5,000)** includes 30+ hours of modular video strategies across Reading, Writing, Listening & Speaking, 7 full timed mock tests, 7 speaking evaluations, and personalized writing reviews.",
+    link: "/recorded-ielts-course",
+    linkText: "View Recorded Course (₹5,000)"
+  },
+  {
+    keywords: ["spoken", "english", "speak", "ash", "level up", "32 day", "fluency", "hesitation", "grammar"],
+    reply: "We offer two dedicated Spoken English programs led by Ash:\n1. **32-Day English Level Up (₹2,999)**: Step-by-step speaking transformation with daily missions & live rooms.\n2. **Speak with Ash Club (₹499/mo)**: 2 weekly live sessions with Ash, 1 trainer room & reviewed WhatsApp tasks.",
+    link: "/courses",
+    linkText: "Explore Spoken English Programs"
+  },
+  {
+    keywords: ["interview", "job", "career", "blueprint", "1999", "hr", "star framework", "resume"],
+    reply: "The **English for Job Seekers (Interview Success Blueprint - ₹1,999)** gives you 15 recorded sessions, 10 live mock interviews, 60–90s pitch mastery, STAR framework answers, and an official /35 evaluation scorecard.",
+    link: "/courses",
+    linkText: "View Interview Blueprint (₹1,999)"
+  },
+  {
+    keywords: ["live", "batch", "schedule", "timetable", "trainer", "interactive", "classroom"],
+    reply: "Our **Live IELTS Batches** provide scheduled interactive workshops, real-time doubts resolution, module materials, and speaking practice with certified trainers.",
+    link: "/live-ielts-course",
+    linkText: "View Live Batches"
+  },
+  {
+    keywords: ["mock", "test", "diagnostic", "free", "quiz", "assessment", "readiness", "score"],
+    reply: "You can take our **Free 2-Minute IELTS Readiness Quiz** or practice with diagnostic mock tests right now on the website with instant feedback.",
+    link: "/mock-tests",
+    linkText: "Start Free Diagnostic Mock Tests"
+  },
+  {
+    keywords: ["study abroad", "visa", "university", "canada", "uk", "usa", "australia", "sop", "admissions"],
+    reply: "Our **Study Abroad Advisory Team** assists with university shortlisting, SOP & essay reviews, scholarship guidance, and visa paperwork from start to finish.",
+    link: "/study-abroad",
+    linkText: "Book Study Abroad Consultation"
+  }
+];
+
 export default function LiveChatWidget() {
   const [isOpen, setIsOpen] = useState(false);
+  const [messages, setMessages] = useState([
+    {
+      id: 1,
+      sender: "bot",
+      text: "👋 Hi there! I'm the Sam & Ash Learning Assistant. Ask me anything about our IELTS courses, Spoken English club, or study abroad counseling!",
+      timestamp: "Just now"
+    }
+  ]);
+  const [inputValue, setInputValue] = useState("");
+  const [isTyping, setIsTyping] = useState(false);
+  const messagesEndRef = useRef(null);
+
+  useEffect(() => {
+    if (isOpen) {
+      messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
+    }
+  }, [messages, isOpen, isTyping]);
 
   function toggleChat() {
     const nextState = !isOpen;
@@ -13,7 +70,62 @@ export default function LiveChatWidget() {
     }
   }
 
-  function handleWhatsAppRedirect(message = "Hi Sam & Ash team! I have a question about your courses.") {
+  function handleSend(userText = inputValue) {
+    if (!userText.trim()) return;
+
+    const userMsg = {
+      id: Date.now(),
+      sender: "user",
+      text: userText.trim(),
+      timestamp: "Just now"
+    };
+
+    setMessages((prev) => [...prev, userMsg]);
+    setInputValue("");
+    setIsTyping(true);
+    track("send_chat_message", { query: userText });
+
+    setTimeout(() => {
+      const lower = userText.toLowerCase();
+      let match = KNOWLEDGE_BASE.find((k) =>
+        k.keywords.some((kw) => lower.includes(kw))
+      );
+
+      let botResponse;
+      if (match) {
+        botResponse = {
+          id: Date.now() + 1,
+          sender: "bot",
+          text: match.reply,
+          link: match.link,
+          linkText: match.linkText,
+          timestamp: "Just now"
+        };
+      } else {
+        botResponse = {
+          id: Date.now() + 1,
+          sender: "bot",
+          text: "I can help you explore our IELTS courses (Recorded & Live), Ash's 32-Day Spoken English Level Up, Interview Prep, or connect you with a human academic counselor on WhatsApp.",
+          link: "/courses",
+          linkText: "Explore All Courses",
+          showWhatsAppOption: true,
+          timestamp: "Just now"
+        };
+      }
+
+      setMessages((prev) => [...prev, botResponse]);
+      setIsTyping(false);
+    }, 600);
+  }
+
+  function handleKeyPress(e) {
+    if (e.key === "Enter") {
+      e.preventDefault();
+      handleSend();
+    }
+  }
+
+  function handleWhatsAppRedirect(message = "Hi Sam & Ash team! I have a question from the website chat.") {
     track("click_whatsapp_direct_chat", { message });
     const encoded = encodeURIComponent(message);
     window.open(`https://wa.me/919999999999?text=${encoded}`, "_blank", "noopener,noreferrer");
@@ -38,8 +150,8 @@ export default function LiveChatWidget() {
                   <span className="chat-online-dot" />
                 </div>
                 <div>
-                  <div className="chat-title">Sam &amp; Ash Support</div>
-                  <div className="chat-subtitle">Typically replies in under 5 mins</div>
+                  <div className="chat-title">Sam &amp; Ash Assistant</div>
+                  <div className="chat-subtitle">Instant AI &amp; Counselor Chat</div>
                 </div>
               </div>
               <button
@@ -51,44 +163,89 @@ export default function LiveChatWidget() {
               </button>
             </div>
 
-            {/* Modal Body */}
-            <div className="chat-modal-body">
-              <div className="chat-bubble received">
-                👋 Hello! Looking to prepare for IELTS or join our Spoken English club? How can we help you today?
-              </div>
+            {/* Interactive Chat Stream */}
+            <div className="chat-stream">
+              {messages.map((m) => (
+                <div
+                  key={m.id}
+                  className={`chat-bubble-row ${m.sender === "user" ? "user-row" : "bot-row"}`}
+                >
+                  <div className={`chat-bubble ${m.sender === "user" ? "sent" : "received"}`}>
+                    <p style={{ margin: 0, whiteSpace: "pre-line" }}>{m.text}</p>
+                    {m.link && (
+                      <Link
+                        to={m.link}
+                        className="chat-bubble-cta"
+                        onClick={() => setIsOpen(false)}
+                      >
+                        {m.linkText} →
+                      </Link>
+                    )}
+                    {m.showWhatsAppOption && (
+                      <button
+                        className="chat-bubble-wa-btn mt-8"
+                        onClick={() => handleWhatsAppRedirect()}
+                      >
+                        💬 Connect with Counselor on WhatsApp
+                      </button>
+                    )}
+                  </div>
+                </div>
+              ))}
 
-              <div className="chat-quick-actions">
-                <button
-                  className="chat-quick-btn"
-                  onClick={() => handleWhatsAppRedirect("Hi! Which course do you recommend for IELTS Band 7.5+?")}
-                >
-                  🎯 Recommend an IELTS Course
-                </button>
-                <button
-                  className="chat-quick-btn"
-                  onClick={() => handleWhatsAppRedirect("Hi Ash! I want to join the Speak with Ash / 32-Day Level Up program.")}
-                >
-                  🗣️ Spoken English &amp; Fluency Inquiry
-                </button>
-                <button
-                  className="chat-quick-btn"
-                  onClick={() => handleWhatsAppRedirect("Hi! I need help with Study Abroad university admissions.")}
-                >
-                  ✈️ Study Abroad Counseling
-                </button>
-              </div>
+              {isTyping && (
+                <div className="chat-bubble-row bot-row">
+                  <div className="chat-bubble received typing-indicator">
+                    <span></span><span></span><span></span>
+                  </div>
+                </div>
+              )}
+              <div ref={messagesEndRef} />
             </div>
 
-            {/* Modal Footer / WhatsApp CTA */}
-            <div className="chat-modal-footer">
+            {/* Quick Action Pills */}
+            <div className="chat-pills-bar">
               <button
-                className="btn-whatsapp-chat"
-                onClick={() => handleWhatsAppRedirect()}
+                className="chat-pill"
+                onClick={() => handleSend("Tell me about the Recorded IELTS Course")}
               >
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
-                  <path d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.287l-.582 2.128 2.182-.573c.978.58 1.911.928 3.145.929 3.178 0 5.767-2.587 5.768-5.766.001-3.187-2.575-5.77-5.764-5.771zm3.392 8.244c-.144.405-.837.774-1.17.824-.312.045-.698.073-2.127-.514-1.828-.75-3.003-2.607-3.094-2.729-.092-.122-.74-1.026-.74-1.957s.484-1.391.657-1.583c.172-.191.376-.239.501-.239.126 0 .25 0 .36.007.115.007.27-.044.423.324.156.376.533 1.303.579 1.398.047.094.078.204.016.328-.063.125-.094.204-.188.313-.094.11-.198.246-.282.33-.094.095-.192.198-.083.385.109.188.484.799 1.037 1.294.712.636 1.312.833 1.499.927.188.094.298.079.407-.047.11-.125.469-.548.594-.736.126-.188.25-.157.422-.094.172.062 1.094.516 1.282.609.188.094.313.141.36.219.046.078.046.452-.098.857z"/>
+                🎯 IELTS Course (₹5,000)
+              </button>
+              <button
+                className="chat-pill"
+                onClick={() => handleSend("How does Speak with Ash / Spoken English work?")}
+              >
+                🗣️ Spoken English
+              </button>
+              <button
+                className="chat-pill"
+                onClick={() => handleSend("Do you have free mock tests?")}
+              >
+                📝 Free Mocks
+              </button>
+            </div>
+
+            {/* Text Input Footer */}
+            <div className="chat-input-footer">
+              <input
+                type="text"
+                className="chat-text-input"
+                placeholder="Ask about courses, fees, mocks..."
+                value={inputValue}
+                onChange={(e) => setInputValue(e.target.value)}
+                onKeyDown={handleKeyPress}
+                autoFocus
+              />
+              <button
+                className="chat-send-btn"
+                onClick={() => handleSend()}
+                disabled={!inputValue.trim()}
+                aria-label="Send Message"
+              >
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                  <line x1="22" y1="2" x2="11" y2="13"></line>
+                  <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
                 </svg>
-                Chat on WhatsApp Now
               </button>
             </div>
           </motion.div>
