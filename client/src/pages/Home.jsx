@@ -428,7 +428,7 @@ export default function Home() {
         </div>
       </motion.section>
 
-      {/* 6. HOW IT WORKS / STEPS */}
+      {/* 5. HOW IT WORKS / STUDENT LEARNING ROADMAP */}
       <motion.section
         className="bg-alt"
         variants={sectionVariant}
@@ -438,8 +438,11 @@ export default function Home() {
       >
         <div className="container">
           <div className="section-head center">
-            <span className="eyebrow blue">5 Simple Steps</span>
-            <h2>How the preparation system works</h2>
+            <span className="eyebrow blue">Our Method</span>
+            <h2>How the learning system works</h2>
+            <p className="muted mt-8">
+              A clear 5-stage transformation that replaces random guessing with structured mastery.
+            </p>
           </div>
           <motion.div
             className="steps"
@@ -450,36 +453,35 @@ export default function Home() {
           >
             <motion.div variants={childCardVariant} className="step">
               <div className="step-num">1</div>
-              <b>Enrol in seconds</b>
-              <p>Secure instantaneous portal access with our seamless Razorpay checkout.</p>
+              <b>Diagnose Level</b>
+              <p>Pinpoint your current grammar, vocabulary, and test band gaps.</p>
             </motion.div>
             <motion.div variants={childCardVariant} className="step">
               <div className="step-num">2</div>
-              <b>Watch video modules</b>
-              <p>Work through 30 hours of high-definition video masterclasses.</p>
+              <b>Learn Strategy</b>
+              <p>Master band-9 criteria and question templates in high-definition video masterclasses.</p>
             </motion.div>
             <motion.div variants={childCardVariant} className="step">
               <div className="step-num">3</div>
-              <b>Practise with sheets</b>
-              <p>Apply methods directly on authentic question sets with sample answers.</p>
+              <b>Live Application</b>
+              <p>Practice speaking and writing with real-time corrections in guided rooms.</p>
             </motion.div>
             <motion.div variants={childCardVariant} className="step">
               <div className="step-num">4</div>
-              <b>Attempt mock tests</b>
-              <p>Benchmark your speed and accuracy across 7 full-length timed tests.</p>
+              <b>Timed Mock Tests</b>
+              <p>Simulate exam-day pressure under real timers with diagnostic tracking.</p>
             </motion.div>
             <motion.div variants={childCardVariant} className="step">
               <div className="step-num">5</div>
-              <b>Get trainer review</b>
-              <p>Receive diagnostic feedback on your writing essays and speaking mocks.</p>
+              <b>Trainer Evaluation</b>
+              <p>Receive line-by-line feedback on essays and 1-on-1 speaking evaluations.</p>
             </motion.div>
           </motion.div>
         </div>
       </motion.section>
 
-      {/* 6. SPOKEN ENGLISH & INTERVIEW BLUEPRINT PROGRAMS */}
+      {/* 6. CHOOSE YOUR LEARNING PATH (Unified Flagship Programs) */}
       <motion.section
-        className="bg-alt"
         variants={sectionVariant}
         initial="hidden"
         whileInView="visible"
@@ -487,13 +489,10 @@ export default function Home() {
       >
         <div className="container">
           <div className="section-head center">
-            <span className="eyebrow green">
-              <img src="/images/icons/icon-speaking.webp" alt="Speaking" className="sticker-icon-sm" />
-              Spoken English &amp; Fluency
-            </span>
-            <h2>Transform your spoken English &amp; interview confidence</h2>
+            <span className="eyebrow">Flagship Programs</span>
+            <h2>Choose the right path for your goal</h2>
             <p className="lede mt-16" style={{ marginLeft: "auto", marginRight: "auto" }}>
-              Beyond IELTS — master everyday conversational fluency, eliminate hesitation, and perform under job interview pressure with Ash.
+              Whether you need high-band IELTS certification or confident everyday English speaking, we have a structured program for you.
             </p>
           </div>
 
@@ -504,126 +503,64 @@ export default function Home() {
             whileInView="visible"
             viewport={{ once: true, margin: "-50px" }}
           >
-            {/* 1. 32-Day English Level Up */}
+            {/* 1. IELTS Recorded Course */}
             <motion.div variants={childCardVariant} className="plan-card recommended">
-              <span className="badge-recommended">32-Day Journey</span>
-              <span className="plan-name">32-Day English Level Up</span>
-              <span className="plan-for">Structured Speaking Transformation</span>
+              <span className="badge-recommended">IELTS Flagship</span>
+              <span className="plan-name">IELTS Strategy Course</span>
+              <span className="plan-for">Self-paced masterclass across all 4 modules</span>
               <p className="small muted">
-                Turn grammar, vocabulary, and communication skills into usable spoken English through recorded masterclasses, live rooms &amp; daily missions.
+                30 hours recorded lessons, 7 full timed mock tests, 7 speaking evaluations, and diagnostic writing reviews.
+              </p>
+              <div className="price-row mt-8">
+                <span className="price-current">₹5,000</span>
+                <span className="price-note">one-time fee</span>
+              </div>
+              <Link to="/recorded-ielts-course" className="btn btn-primary btn-block plan-cta">
+                View Recorded Course
+              </Link>
+            </motion.div>
+
+            {/* 2. 32-Day English Level Up */}
+            <motion.div variants={childCardVariant} className="plan-card">
+              <span className="google-band-tag">Spoken English</span>
+              <span className="plan-name mt-8">32-Day English Level Up</span>
+              <span className="plan-for">Structured speaking &amp; grammar foundation</span>
+              <p className="small muted">
+                Turn grammar into usable spoken English through recorded lessons, live rooms, daily speaking tasks &amp; progress checks.
               </p>
               <div className="price-row mt-8">
                 <span className="price-current">₹2,999</span>
                 <span className="price-note">one-time cohort fee</span>
               </div>
-              <Link to="/courses" className="btn btn-primary btn-block plan-cta">
+              <Link to="/courses" className="btn btn-secondary btn-block plan-cta">
                 Explore 32-Day Level Up
               </Link>
             </motion.div>
 
-            {/* 2. Speak with Ash */}
+            {/* 3. Speak with Ash / Interview Intensive */}
             <motion.div variants={childCardVariant} className="plan-card">
-              <span className="google-band-tag">Monthly Club</span>
-              <span className="plan-name mt-8">Speak with Ash</span>
-              <span className="plan-for">Ongoing Human Speaking Membership</span>
+              <span className="google-band-tag">Career &amp; Fluency</span>
+              <span className="plan-name mt-8">Speak with Ash Club</span>
+              <span className="plan-for">Weekly speaking practice &amp; interview prep</span>
               <p className="small muted">
-                2 Live sessions with Ash/week, 1 trainer practice room, daily missions, and reviewed WhatsApp accountability.
+                2 Live sessions with Ash/week, 1 trainer room, peer calls, WhatsApp feedback, and interview blueprints.
               </p>
               <div className="price-row mt-8">
                 <span className="price-current">₹499</span>
                 <span className="price-note">per month</span>
               </div>
               <Link to="/courses" className="btn btn-secondary btn-block plan-cta">
-                Join Speak with Ash
-              </Link>
-            </motion.div>
-
-            {/* 3. Interview Success Blueprint */}
-            <motion.div variants={childCardVariant} className="plan-card">
-              <span className="google-band-tag">4-Week Intensive</span>
-              <span className="plan-name mt-8">Interview Success</span>
-              <span className="plan-for">English-First Interview Performance</span>
-              <p className="small muted">
-                15 recorded sessions + 10 live mocks, 60–90s pitch, STAR answer framework, and official /35 scorecard.
-              </p>
-              <div className="price-row mt-8">
-                <span className="price-current">₹1,999</span>
-                <span className="price-note">one-time fee</span>
-              </div>
-              <Link to="/courses" className="btn btn-secondary btn-block plan-cta">
-                View Interview Course
+                Join Speaking Club
               </Link>
             </motion.div>
           </motion.div>
-        </div>
-      </motion.section>
 
-      {/* 7. CHOOSE YOUR PLAN */}
-      <motion.section
-        variants={sectionVariant}
-        initial="hidden"
-        whileInView="visible"
-        viewport={{ once: true, margin: "-80px" }}
-      >
-        <div className="container">
-          <div className="section-head center">
-            <span className="eyebrow">Choose Your Path</span>
-            <h2>Tailored preparation for every timeline</h2>
+          <div className="text-center mt-32">
+            <Link to="/courses" className="btn btn-secondary">
+              View All 6 Programs &amp; Full Comparison Table
+              <img src="/images/icons/icon-arrow-right.webp" alt="Arrow" className="sticker-icon-sm" />
+            </Link>
           </div>
-
-          <motion.div
-            className="plan-grid"
-            variants={staggerContainer}
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, margin: "-50px" }}
-          >
-            <motion.div variants={childCardVariant} className="plan-card recommended">
-              <span className="badge-recommended">Most Popular</span>
-              <span className="plan-name">Recorded Course</span>
-              <span className="plan-for">Best for self-paced, flexible learners</span>
-              <p className="small muted">
-                30 hours recorded lessons · All 4 modules · 7 mock tests · Writing &amp; speaking review included.
-              </p>
-              <div className="price-row mt-8">
-                <span className="price-current">₹5,000</span>
-                <span className="price-note">one-time</span>
-              </div>
-              <Link to="/recorded-ielts-course" className="btn btn-primary btn-block plan-cta">
-                Enrol in Recorded Course
-              </Link>
-            </motion.div>
-
-            <motion.div variants={childCardVariant} className="plan-card">
-              <span className="plan-name">Live Batches</span>
-              <span className="plan-for">Best for structured classroom accountability</span>
-              <p className="small muted">
-                Live interactive workshops · Fixed batch timetable · Real-time teacher Q&amp;A sessions.
-              </p>
-              <div className="price-row mt-8">
-                <span className="price-current">Scheduled</span>
-                <span className="price-note">by batch</span>
-              </div>
-              <Link to="/live-ielts-course" className="btn btn-secondary btn-block plan-cta">
-                View Next Batch
-              </Link>
-            </motion.div>
-
-            <motion.div variants={childCardVariant} className="plan-card">
-              <span className="plan-name">Free Resources</span>
-              <span className="plan-for">Best for quick diagnostics and self-study</span>
-              <p className="small muted">
-                Free IELTS readiness assessment · 30/60/90-day study blueprints · Sample video lesson.
-              </p>
-              <div className="price-row mt-8">
-                <span className="price-current">Free</span>
-                <span className="price-note">forever</span>
-              </div>
-              <Link to="/mock-tests" className="btn btn-secondary btn-block plan-cta">
-                Explore Free Resources
-              </Link>
-            </motion.div>
-          </motion.div>
         </div>
       </motion.section>
 
