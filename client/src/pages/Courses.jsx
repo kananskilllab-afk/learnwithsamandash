@@ -58,29 +58,28 @@ export default function Courses() {
               Whether you need high-band IELTS exam strategies or day-to-day English speaking confidence, choose the structured program designed for your goal.
             </p>
 
-            {/* Category Filter Pills */}
-            <div className="flex items-center gap-12 mt-28 flex-wrap">
-              <button
-                className={`btn ${activeCategory === "all" ? "btn-primary" : "btn-secondary"}`}
-                onClick={() => setActiveCategory("all")}
-                style={{ padding: "10px 20px", fontSize: "14px" }}
-              >
-                All Programs
-              </button>
-              <button
-                className={`btn ${activeCategory === "english" ? "btn-primary" : "btn-secondary"}`}
-                onClick={() => setActiveCategory("english")}
-                style={{ padding: "10px 20px", fontSize: "14px" }}
-              >
-                Spoken English &amp; Interview
-              </button>
-              <button
-                className={`btn ${activeCategory === "ielts" ? "btn-primary" : "btn-secondary"}`}
-                onClick={() => setActiveCategory("ielts")}
-                style={{ padding: "10px 20px", fontSize: "14px" }}
-              >
-                IELTS Preparation
-              </button>
+            {/* Sleek Segmented Category Control */}
+            <div className="segmented-control-wrap mt-32">
+              <div className="segmented-control">
+                <button
+                  className={`segment-btn ${activeCategory === "all" ? "active" : ""}`}
+                  onClick={() => setActiveCategory("all")}
+                >
+                  All Courses (6)
+                </button>
+                <button
+                  className={`segment-btn ${activeCategory === "english" ? "active" : ""}`}
+                  onClick={() => setActiveCategory("english")}
+                >
+                  Spoken English &amp; Interview (3)
+                </button>
+                <button
+                  className={`segment-btn ${activeCategory === "ielts" ? "active" : ""}`}
+                  onClick={() => setActiveCategory("ielts")}
+                >
+                  IELTS Preparation (3)
+                </button>
+              </div>
             </div>
           </motion.div>
         </div>
